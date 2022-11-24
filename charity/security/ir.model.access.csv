@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_charity_charity,charity.charity,model_charity_charity,,1,1,1,1
+access_charity_cases,charity.cases,model_charity_cases,,1,1,1,1

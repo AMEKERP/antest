@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <report
+            id="case_report"
+            model="charity.charity"
+            string="Case report"
+            report_type="qweb-pdf"
+            name="charity.report_case"
+            file="charity.report_case"
+    />
+    <template id="report_case">
+        <t t-name="charity.report_case">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="web.internal_layout">
+                        <div class="page">
+                            <h1 style="background-color: gray; margin: 5px 0;">Case Information</h1>
+                            <div style="border: 1px solid black;">
+                                <p style="font-size: 1.2em; margin: 5px 0; padding: 0px 0px;">
+                                    Date :
+                                    <span t-field="o.Date"/>
+                                </p>
+                                <p style="font-size: 1.2em; margin: 5px 0; padding: 0px 0px;">
+                                    Name :
+                                    <span t-field="o.name"/>
+                                </p>
+                                <p style="font-size: 1.2em; margin: 5px 0; padding: 0px 0px;">
+                                    Case ID :
+                                    <span t-field="o.case_id"/>
+                                </p>
+                                <p style="font-size: 1.2em; margin: 5px 0; padding: 0px 0px;">
+                                    Mobile :
+                                    <span t-field="o.mobile"/>
+                                </p>
+                                <p style="font-size: 1.2em; margin: 5px 0; padding: 0px 0px;">
+                                    Job :
+                                    <span t-field="o.job_title"/>
+                                </p>
+                                <p style="font-size: 1.2em; margin: 5px 0; padding: 0px 0px;">
+                                    Case Type :
+                                    <span t-field="o.case_type"/>
+                                </p>
+                                <p style="font-size: 1.2em; margin: 5px 0; padding: 0px 0px;">
+                                    Religion :
+                                    <span t-field="o.religion"/>
+                                </p>
+                            </div>
+                            <h1 style="background-color: gray; margin: 5px 0;">Case Details</h1>
+                            <div style="border: 1px solid black;">
+                                <p style="font-size: 1.2em; margin: 5px 0; padding: 0px 0px;">
+                                    Main Income :
+
+                                    <span t-field="o.main_income"/>
+                                </p>
+                                <p style="font-size: 1.2em; margin: 5px 0; padding: 0px 0px;">
+                                    Additional Income :
+                                    <span t-field="o.additional_income"/>
+                                </p>
+                                <p style="font-size: 1.2em; margin: 5px 0; padding: 0px 0px;">
+                                    Total income
+                                    <span t-field="o.total_income"/>
+                                </p>
+                                <p style="font-size: 1.2em; margin: 5px 0; padding: 0px 0px;">
+                                    Basic Expenses :
+                                    <span t-field="o.basic_expenses"/>
+                                </p>
+                                <p style="font-size: 1.2em; margin: 5px 0; padding: 0px 0px;">
+                                    Debts and Fins :
+                                    <span t-field="o.debts_fines"/>
+                                </p>
+                            </div>
+                            <h1 style="background-color: gray; margin: 5px 0;">Final Committee Decision</h1>
+                            <div style="border: 1px solid black;">
+                                <p style="font-size: 1.2em;">
+                                    Details :
+                                    <span t-field="o.details"/>
+                                </p>
+                                <p style="font-size: 1.2em;">
+                                    Recommendation :
+                                    <span t-field="o.recommendation"/>
+                                </p>
+                                  <p style="font-size: 1.2em; margin: 5px 0; padding: 0px 0px;">
+                                    Decision :
+                                    <span t-field="o.decision"/>
+                                </p>
+                                  <p style="font-size: 1.2em; margin: 5px 0; padding: 0px 0px;">
+                                    Cut Help Amount :
+                                    <span t-field="o.cut_help_amount"/>
+                                </p>
+                                  <p style="font-size: 1.2em; margin: 5px 0; padding: 0px 0px;">
+                                    Ongoing Help Amount :
+                                    <span t-field="o.ongoing_help_amount"/>
+                                </p>
+                            </div>
+                            <h3 style="background-color: gray; margin: 5px 0;">Note</h3>
+                            <div style="border: 1px solid black;">
+                                <p style="font-size: 1.2em;">
+                                    All spent help are for 6 months period then represented to the committee to be
+                                    renewed
+                                    or
+                                    suspended
+                                </p>
+                            </div>
+
+
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

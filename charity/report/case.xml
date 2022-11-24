@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <report
+            id="case_report"
+            model="charity.charity"
+            string="Case report"
+            report_type="qweb-pdf"
+            name="charity.report_case"
+            file="charity.report_case"
+    />
+    <template id="report_case">
+        <t t-name="charity.report_case">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="web.external_layout">
+                        <div class="page">
+                            <link rel="stylesheet" href="/charity/static/src/css/style.css"/>
+                            <h3 class="text-center arabic"
+                                style="background-color: gray; color: white; margin: 5px 0;">إفادة اللجنة عن الحالة
+                            </h3>
+                            <div style="">
+                                <p class="text-right arabic" style="font-size: 1em; margin: 5px 0; padding: 0px 0px;">
+                                    التاريخ :
+                                    <span t-field="o.Date"/>
+                                </p>
+                                <table  width="100%" class="text-right arabic" style=" text-align: right;">
+                                    <tbody class="text-right arabic" style=" text-align: right;">
+                                        <tr>
+                                            <td>
+                                                <p class="text-right arabic"
+                                                   style="font-size: 1em; margin: 5px 0; padding: 0px 0px;">
+                                                    الرقم المدنى :
+                                                    <span t-field="o.case_id"/>
+                                                </p>
+                                                <p class="text-right arabic"
+                                                   style="font-size: 1em; margin: 5px 0; padding: 0px 0px;">
+                                                    الحالة الإجتماعية :
+                                                    <span t-field="o.social_state"/>
+                                                </p>
+                                                <p class="text-right arabic"
+                                                   style="font-size: 1em; margin: 5px 0; padding: 0px 0px;">
+                                                    الجوال :
+                                                    <span t-field="o.mobile"/>
+                                                </p>
+
+                                            </td>
+                                            <td>
+                                                <p class="text-right arabic"
+                                                   style="font-size: 1em; margin: 5px 0; padding: 0px 0px;">
+                                                    الاسم :
+                                                    <span t-field="o.name"/>
+                                                </p>
+                                                <p class="text-right arabic"
+                                                   style="font-size: 1em; margin: 5px 0; padding: 0px 0px;">
+                                                    الوظيفة:
+                                                    <span t-field="o.job_title"/>
+                                                </p>
+                                                <p class="text-right arabic"
+                                                   style="font-size: 1em; margin: 5px 0; padding: 0px 0px;">
+                                                    الديانة:
+                                                    <span t-field="o.religion"/>
+                                                </p>
+                                                <p class="text-right arabic"
+                                                   style="font-size: 1em; margin: 5px 0; padding: 0px 0px;">
+                                                    طبيعة الحالة :
+                                                    <span t-field="o.case_type"/>
+                                                </p>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <!--
+                                <p class="text-right arabic" style="font-size: 1em; margin: 5px 0; padding: 0px 0px;">
+                                    المستندات المطلوبة:
+                                    <span t-field="o.required_docs"/>
+                                </p>
+                                <p class="text-right arabic" style="font-size: 1em; margin: 5px 0; padding: 0px 0px;"
+                                   attrs="{'invisible': [('required_docs', '=', 'complete')]}">
+                                    المستندات الناقضة:
+                                    <span t-field="o.messing_docs"/>
+                                </p>
+                              -->
+                            </div>
+                            <h3 class="text-center arabic"
+                                style="background-color: gray; color: white; margin: 5px 0;">تفاصيل الحالة
+                            </h3>
+                            <div style=" border: 2px solid black; padding: 5px 5px; margin: 5px 0;">
+                                <p class="text-right arabic" style="font-size: 1em; margin: 5px 0; padding: 0px 0px;">
+                                    الدخل الأساسى :
+                                    <span t-field="o.main_income"/>
+                                </p>
+                                <p class="text-right arabic" style="font-size: 1em; margin: 5px 0; padding: 0px 0px;">
+                                    الدخل الإضافى :
+                                    <span t-field="o.additional_income"/>
+                                </p>
+                                <p class="text-right arabic" style="font-size: 1em; margin: 5px 0; padding: 0px 0px;">
+                                    إجمالى الدخل
+                                    <span t-field="o.total_income"/>
+                                </p>
+                                <p class="text-right arabic" style="font-size: 1em; margin: 5px 0; padding: 0px 0px;">
+                                    المصايف الأساسية :
+                                    <span t-field="o.basic_expenses"/>
+                                </p>
+                                <p class="text-right arabic" style="font-size: 1em; margin: 5px 0; padding: 0px 0px;">
+                                    الديون و الغرامات :
+                                    <span t-field="o.debts_fines"/>
+                                </p>
+                            </div>
+                            <div style=" border: 2px solid black;padding: 5px 5px;margin: 5px 0;">
+                                <p class="text-right arabic" style="font-size: 1em; margin: 5px 0; padding: 0px 0px;">
+                                    التفاصيل :
+                                    <span t-field="o.details"/>
+                                </p>
+                            </div>
+                            <div style=" border: 2px solid black; padding: 5px 5px; margin: 5px 0;">
+                                <p class="text-right arabic" style="font-size: 1em;">
+                                    توصية الباحث الإجتماعى :
+                                    <span t-field="o.recommendation"/>
+                                </p>
+                                <p class="text-left arabic" style="font-size: 1.2em;">
+                                    توقيع الباحث
+                                </p>
+                                <p class="text-left arabic" style="font-size: 1.2em;">
+                                    "........................"
+                                </p>
+                            </div>
+
+                            <h3 class="text-center arabic"
+                                style="background-color: gray; color: white; margin: 5px 0;">
+                                قرار اللجنة النهائى
+                            </h3>
+                            <div style=" border: 2px solid black; padding: 5px 5px; margin: 5px 0;">
+                                <p class="text-right arabic" style="font-size: 1.2em; margin: 5px 0; padding: 0px 0px;">
+                                    قرار اللجنة:
+                                    <span t-field="o.decision" widget="radio"/>
+                                </p>
+                                <p class="text-right arabic" style="font-size: 1.2em; margin: 5px 0; padding: 0px 0px;">
+                                    مبلغ المساعدة المقطوعة :
+                                    <span t-field="o.cut_help_amount"/>
+                                </p>
+                                <p class="text-right arabic" style="font-size: 1.2em; margin: 5px 0; padding: 0px 0px;">
+                                    مبلغ المساعدة المستمرة :
+                                    <span t-field="o.ongoing_help_amount"/>
+                                </p>
+
+                                <h5 class="text-right arabic" style="color: #6495ED;  font-weight: 900; margin: 5px 0;">
+                                    ملحوظة
+                                </h5>
+
+                                <p class="text-right arabic" style="font-size: 1.2em;">
+                                    كل المساعدات المصروفة مدتها 6 أشهر ثم تعرض على اللجنة للتجديد أو الإيقاف
+                                </p>
+                                <p class="text-left arabic" style="font-size: 1.4em;">
+                                    توقيع رئيس اللجنة
+                                </p>
+                                <p class="text-left arabic" style="font-size: 1.4em;">
+                                    "........................"
+                                </p>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

@@ -1,0 +1,12 @@
+<odoo>
+    <record id="only_record_creator_can_edite" model="ir.rule">
+        <field name="name">Only record creator can edite</field>
+        <field name="model_id" ref="charity.charity"/>
+        <field name="domain_force">[('create_uid', '=', 'user.id'), ('user_id', '=', user.id)]</field>
+        <field name="perm_read" eval="0"/>
+        <field name="perm_write" eval="1"/>
+        <field name="perm_create" eval="0"/>
+        <field name="perm_unlink" eval="0"/>
+        <field name="groups" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+</odoo>

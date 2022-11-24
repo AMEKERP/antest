@@ -1,0 +1,457 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- menu item -->
+    <record id="charity_web_form" model="website.menu">
+        <field name="name">طلب مساعدة</field>
+        <field name="url">/case_form1</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="sequence" type="int">50</field>
+    </record>
+    <!--signup form-->
+    <template id="auth_signup.fields" name="Auth Signup/ResetPassword form fields">
+        <div class="form-group field-login">
+            <label for="login">البريد الالكتروني</label>
+            <input type="email" name="login" t-att-value="login" id="login" class="form-control form-control-sm"
+                   autofocus="autofocus"
+                   autocapitalize="off" required="required" t-att-readonly="'readonly' if only_passwords else None"/>
+        </div>
+        <div class="form-group field-name">
+            <label for="name">الاسم</label>
+            <input type="text" name="name" t-att-value="name" id="name" class="form-control form-control-sm"
+                   required="required" t-att-readonly="'readonly' if only_passwords else None"
+                   t-att-autofocus="'autofocus' if login and not only_passwords else None"/>
+        </div>
+        <div class="form-group field-password pt-2">
+            <label for="password">الرقم السري</label>
+            <input type="password" name="password" id="password" class="form-control form-control-sm"
+                   required="required" t-att-autofocus="'autofocus' if only_passwords else None"/>
+        </div>
+        <div class="form-group field-confirm_password">
+            <label for="confirm_password">تأكيد الرقم السري</label>
+            <input type="password" name="confirm_password" id="confirm_password" class="form-control form-control-sm"
+                   required="required"/>
+        </div>
+    </template>
+    <!--pagination-->
+    <template id="portal_my_home_menu_cases" name="Portal layout : Cases menu entries"
+              inherit_id="portal.portal_breadcrumbs" priority="20">
+        <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+            <li t-if="page_name == 'case'" t-attf-class="breadcrumb-item #{'active ' if not case else ''}">
+                <a t-if="case" t-attf-href="/cases">الطلبات</a>
+                <t t-else="">الطلبات</t>
+            </li>
+            <li t-if="case" class="breadcrumb-item active">
+                <t t-esc="case.case_seq"/>
+            </li>
+        </xpath>
+    </template>
+    <!-- my all cases-->
+    <template id="portal_my_cases" name="My Cases">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">الطلبات</t>
+            </t>
+            <t t-if="not cases">
+                <p>لا توجد طلبات</p>
+            </t>
+            <t t-if="cases" t-call="portal.portal_table">
+                <thead>
+                    <tr class="active">
+                        <th>رقم الطلب</th>
+                        <th class="text-right">اسم الطلب</th>
+                        <th class="text-right">تاريخ الطلب</th>
+                        <th class="text-right">الرقم المدني</th>
+                        <th class="text-right">قرار اللجنة</th>
+                        <th class="text-right">مقدم الطلب</th>
+                    </tr>
+                </thead>
+                <t t-foreach="cases" t-as="case">
+                    <tr>
+                        <td>
+                            <a t-attf-href="/cases/{{ slug(case) }}">
+                                <t t-esc="case.case_seq"/>
+                            </a>
+                        </td>
+                        <td class="text-right">
+                            <t t-esc="case.name"/>
+                        </td>
+                        <td class="text-right">
+                            <t t-esc="case.create_date.date()"/>
+                        </td>
+                        <td class="text-right">
+                            <t t-esc="case.case_id"/>
+                        </td>
+                        <td class="text-right">
+                            <t t-esc="case.decision"/>
+                        </td>
+                        <td class="text-right">
+                            <t t-esc="case.create_uid.name"/>
+                        </td>
+                    </tr>
+                </t>
+            </t>
+        </t>
+    </template>
+    <!--count cases-->
+    <template id="portal_my_home_cases" name="Show Cases" inherit_id="portal.portal_my_home" customize_show="True">
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+            <t t-call="portal.portal_docs_entry">
+                <t t-set="title">الطلبات</t>
+                <t t-set="url" t-value="'/cases'"/>
+                <t t-set="placeholder_count" t-value="'count_cases'"/>
+            </t>
+        </xpath>
+    </template>
+    <!--case detail-->
+    <template id="case_status">
+        <t t-call="portal.portal_layout">
+            <div class="card-body">
+                <title>الطلب</title>
+                <div class="oe_structure"/>
+                <div class="oe_structure">
+                    <div class="col-12 col-lg justify-content-end">
+                        <div class="container">
+                            <span>
+                                <h1>حاله الطلب</h1>
+                                <ul>
+                                    <li>
+                                        <strong>
+                                            رقم الطلب :
+                                        </strong>
+                                        <t t-esc="case.case_seq"/>
+                                    </li>
+                                    <li>
+                                        <strong>
+                                            اسم الطلب :
+                                        </strong>
+                                        <t t-esc="case.name"/>
+                                    </li>
+                                    <li>
+                                        <strong>
+                                            الرقم المدني :
+                                        </strong>
+                                        <t t-esc="case.case_id"/>
+                                    </li>
+                                    <li>
+                                        <strong>
+                                            تاريخ الطلب :
+                                        </strong>
+                                        <t t-esc="case.create_date.date()"/>
+                                    </li>
+                                    <li>
+                                        <strong>
+                                            قرار اللجنه :
+                                        </strong>
+                                        <t t-esc="case.decision"/>
+                                    </li>
+                                    <li>
+                                        <strong>
+                                            ملاحظات الباحث للحالة :
+                                        </strong>
+                                        <t t-esc="case.recommendation"/>
+                                    </li>
+                                </ul>
+                            </span>
+                            <div id="case_request_communication" class="mt-4">
+                                <h2>تعليقات خاصة بالطلب</h2>
+                                <t t-if="not case.comments">
+                                    <span>لا توجد تعليقات</span>
+                                </t>
+                                <t t-if="case.comments">
+                                    <div class="alert alert-warning" role="alert">
+                                        <i class="fa fa-info-circle pr-2">
+                                            <h5 t-esc="case.comments"></h5>
+                                        </i>
+                                    </div>
+                                    <t t-call="portal.message_thread">
+                                        <t t-set="object" t-value="case"/>
+                                    </t>
+                                    <i class="fa fa-info-circle pr-2"/>
+                                    فقط الملفات من نوع JPG, PNG, PDFمدعومه
+                                </t>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <!--add case from-->
+    <template id="case_form1" name="Add Case">
+        <t t-call="website.layout">
+            <div id="wrap">
+                <div class="oe_structure">
+                    <div class="container" dir="rtl" style="text-align:right">
+                        <form role="form" method="POST" action="/create/webcase" enctype='multipart/form-data'>
+                            <div>
+                                <h1>بيانات مقدم الطلب</h1>
+                            </div>
+
+                            <div class="form.group">
+                                <label for="name" class="control_label">* اسم مقدم الطلب</label>
+                                <input type="text" name="name" t-att-value="name" id="name" class="form-control"
+                                       required="true"/>
+                            </div>
+                            <div class="form.group">
+                                <label for="case_id" class="control_label" required="true">* الرقم المدني</label>
+                                <input type="int" name="case_id" t-att-value="case_id" id="case_id"
+                                       class="form-control" required="true" minlength="12" maxlength="12"
+                                       placeholder="يرجي ادخال ١٢ رقم فقط"/>
+                            </div>
+                            <div class="form.group">
+                                <label for="case_type" class="control_label" required="true">* نوع الطلب</label>
+                                <select name="case_type" class="form-control">
+                                    <t t-foreach="case_record" t-as="case">
+                                        <option t-esc="case.name" t-att-value="case.id"/>
+                                    </t>
+                                </select>
+                            </div>
+                            <div class="form.group">
+                                <label for="nationality" class="control_label">* الجنسية</label>
+                                <select name="nationality" class="form-control" required="" default="Kuwait">
+                                    <t t-foreach="nation_rec" t-as="nation">
+                                        <option t-esc="nation.name" t-att-value="nation.id"/>
+                                    </t>
+                                </select>
+                            </div>
+                            <div class="form.group">
+                                <label for="religion" class="control_label">الديانة</label>
+                                <select class="form-control" name="religion">
+                                    <option t-attf-value="muslim">مسلم</option>
+                                    <option t-attf-value="christian">مسيحي</option>
+                                    <option t-attf-value="others">اخري</option>
+                                </select>
+                            </div>
+                            <div class="form.group">
+                                <label for="job_title" class="control_label">الوظيفة</label>
+                                <input type="text" name="job_title" t-att-value="job_title" id="job_title"
+                                       class="form-control"/>
+                            </div>
+                            <div class="form.group">
+                                <label for="social_state" class="control_label">الحالة الاجتماعية</label>
+                                <select class="form-control" name="social_state">
+                                    <option t-attf-value="married">متزوج</option>
+                                    <option t-attf-value="single">اعزب</option>
+                                    <option t-attf-value="widowed">مطلق</option>
+                                    <option t-attf-value="student">طالب</option>
+                                </select>
+
+                            </div>
+                            <div class="form.group">
+                                <label for="mobile" class="control_label">رقم التليفون</label>
+                                <input type="int" name="mobile" t-att-value="mobile" id="mobile" class="form-control"/>
+                            </div>
+                            <br/>
+                            <hr/>
+                            <div>
+                                <h1>بيانات الطلب</h1>
+                            </div>
+                            <div class="form.group">
+                                <label for="currency_id" class="control_label" hidden="true">* Currency</label>
+                                <select name='currency_id' class="form-control link-style" hidden="true">
+                                    <t t-foreach="currency_rec" t-as="currency">
+                                        <option t-esc="currency.name" t-att-value="currency.id"/>
+                                    </t>
+                                </select>
+                            </div>
+                            <div class="form.group">
+                                <label for="main_income" class="control_label">الدخل الاساسي</label>
+                                <input type="number" widget="monetary" name="main_income" t-att-value="main_income"
+                                       id='main_income' class="form-control" placeholder="يرجي كتابة ارقام فقط"/>
+                            </div>
+                            <div class="form.group">
+                                <label for="additional_income" class="control_label">الدخل الاضافي</label>
+                                <input type="number" name="additional_income" t-att-value="additional_income"
+                                       id='additional_income' class="form-control" placeholder="يرجي كتابة ارقام فقط"/>
+                            </div>
+                            <div class="form.group">
+                                <label for="basic_expenses" class="control_label">المصاريف الاساسية</label>
+                                <input type="number" name="basic_expenses" t-att-value="basic_expenses"
+                                       id='basic_expenses' class="form-control" placeholder="يرجي كتابة ارقام فقط"/>
+                            </div>
+                            <div class="form.group">
+                                <label for="debts_fines" class="control_label">قروض</label>
+                                <input type="number" name="debts_fines" t-att-value="debts_fines" id='debts_fines'
+                                       class="form-control" placeholder="يرجي كتابة ارقام فقط"/>
+                            </div>
+                            <div class="form.group">
+                                <label for="details" class="control_label">تفاصيل</label>
+                                <input type="text" name="details" t-att-value="details" id="details"
+                                       class="form-control"/>
+                            </div>
+                            <br/>
+                            <hr/>
+
+                            <div>
+                                <h1>الاوراق المطلوبة</h1>
+                                <div class="alert alert-warning" role="alert">
+                                    <i class="fa fa-info-circle pr-2"/>
+                                    JPG, PNG, PDF,JPEG فقط الملفات المدعومة
+                                    <br/>
+                                    <i class="fa fa-info-circle pr-2"/>
+                                    و في حالة إرفاق أكثر من ملف أو صورة لبند واحد يلزم دمج الملفات والصور بملف واحد
+                                    بصيغة PDF
+                                </div>
+                            </div>
+                            <div class="form.group">
+                                <label for="bank_statement6m" class="control_label">كشف حساب من البنك أخر 6 شهور *
+                                </label>
+                                <input type="file" accept="image/*,application/pdf" multiple="true"
+                                       required="true" name="bank_statement6m" id="bank_statement6m"
+                                       t-att-value="bank_statement6m"
+                                       class="form-control" data-show-upload="true" data-show-caption="true" lass="file"
+
+                                />
+                                <small class="form-text text-muted">يجب ان لا يزيد حجم الملف عن 2 ميجابايت</small>
+                            </div>
+
+                            <div class="form.group">
+                                <label for="salary_statement" class="control_label">شهادة راتب حديثة التاريخ *</label>
+                                <i class="fa fa-info-circle pr-2"/>
+                                فقط الملفات من نوع JPG, PNG, PDFمدعومه
+                                <input type="file" accept="image/*,application/pdf" required="true" multiple="true"
+                                       name="salary_statement" id="salary_statement" t-att-value="salary_statement"
+                                       class="form-control"/>
+                                <small class="form-text text-muted">يجب ان لا يزيد حجم الملف عن 2 ميجابايت</small>
+                            </div>
+
+                            <div class="form.group">
+                                <label for="rent_copy" class="control_label">صورة عقد الإيجار *</label>
+                                <i class="fa fa-info-circle pr-2"/>
+                                فقط الملفات من نوع JPG, PNG, PDFمدعومه
+                                <input type="file" accept="image/*,application/pdf" required="true"
+                                       multiple="true" name="rent_copy" id="rent_copy" t-att-value="rent_copy"
+                                       class="form-control"/>
+                                <small class="form-text text-muted">يجب ان لا يزيد حجم الملف عن 2 ميجابايت</small>
+                            </div>
+                            <div class="form.group">
+                                <label for="rent_copy_last" class="control_label">صورة أخر وصل للإيجار *</label>
+                                <i class="fa fa-info-circle pr-2"/>
+                                فقط الملفات من نوع JPG, PNG, PDFمدعومه
+                                <input type="file" accept="image/*,application/pdf" multiple="true"
+                                       name="rent_copy_last" required="true" id="rent_copy_last"
+                                       t-att-value="rent_copy_last"
+                                       class="form-control"/>
+                                <small class="form-text text-muted">يجب ان لا يزيد حجم الملف عن 2 ميجابايت</small>
+                            </div>
+                            <div class="form.group">
+                                <label for="marriage_copy" class="control_label">صورة عقد زواج *</label>
+                                <i class="fa fa-info-circle pr-2"/>
+                                فقط الملفات من نوع JPG, PNG, PDFمدعومه
+                                <input type="file" accept="image/*,application/pdf" required="true"
+                                       multiple="true" name="marriage_copy" id="marriage_copy"
+                                       t-att-value="marriage_copy" class="form-control"/>
+                                <small class="form-text text-muted">يجب ان لا يزيد حجم الملف عن 2 ميجابايت</small>
+                            </div>
+                            <div class="form.group">
+                                <label for="id_copy" class="control_label">صورة بطاقات الأسرة من الجهتين *</label>
+                                <i class="fa fa-info-circle pr-2"/>
+                                فقط الملفات من نوع JPG, PNG, PDFمدعومه
+                                <input type="file" accept="image/*,application/pdf" required="true"
+                                       multiple="true" name="id_copy" id="id_copy" t-att-value="id_copy"
+                                       class="form-control"/>
+                                <small class="form-text text-muted">يجب ان لا يزيد حجم الملف عن 2 ميجابايت</small>
+                            </div>
+                            <div class="form.group">
+                                <label for="dept_copy" class="control_label">صور مديونيات أو رسوم دراسية بتاريخ حديث *
+                                </label>
+                                <i class="fa fa-info-circle pr-2"/>
+                                فقط الملفات من نوع JPG, PNG, PDFمدعومه
+                                <input type="file" accept="image/*,application/pdf" required="true"
+                                       multiple="true" name="dept_copy" id="dept_copy" t-att-value="dept_copy"
+                                       class="form-control"/>
+                                <small class="form-text text-muted">يجب ان لا يزيد حجم الملف عن 2 ميجابايت</small>
+                            </div>
+                            <div class="form.group">
+                                <label for="widowed_copy" class="control_label">شهادة وفاة للأرامل وخلو زوجية</label>
+                                <i class="fa fa-info-circle pr-2"/>
+                                فقط الملفات من نوع JPG, PNG, PDFمدعومه
+                                <input type="file" accept="image/*,application/pdf" multiple="true"
+                                       name="widowed_copy" id="widowed_copy" t-att-value="widowed_copy"
+                                       class="form-control"/>
+                                <small class="form-text text-muted">يجب ان لا يزيد حجم الملف عن 2 ميجابايت</small>
+                            </div>
+                            <div class="form.group">
+                                <label for="help_book" class="control_label">كتاب جمعية صندوق إعانة المرضي</label>
+                                <i class="fa fa-info-circle pr-2"/>
+                                فقط الملفات من نوع JPG, PNG, PDFمدعومه
+                                <input type="file" accept="image/*,application/pdf" multiple="true"
+                                       name="help_book" id="help_book" t-att-value="help_book" class="form-control"/>
+                                <small class="form-text text-muted">يجب ان لا يزيد حجم الملف عن 2 ميجابايت</small>
+
+                            </div>
+                            <br/>
+                            <div class="clearfix oe_login_buttons">
+                                <button type="submit" class="btn btn-primary pull-left s_website_form_send">تسجيل
+                                    الطلب
+                                </button>
+                                <span id="s_website_form_result"></span>
+
+                            </div>
+                            <br/>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </template>
+    <!-- success request-->
+    <record id="case_thanks" model="website.page">
+        <field name="name">Thanks</field>
+        <field name="type">qweb</field>
+        <field name="url">/case-thank-you</field>
+        <field name="website_published">True</field>
+        <field name="key">charity.case_thanks</field>
+        <field name="arch" type="xml">
+            <t name="Thanks" t-name="charity.case_thanks">
+                <t t-call="website.layout">
+                    <div id="wrap">
+                        <div class="container">
+                            <h1>Thanks</h1>
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <div class="alert alert-success" role="status">
+                                        تم تقديم الطلب بنجاح
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </field>
+    </record>
+    <!-- success error-->
+    <record id="case_error" model="website.page">
+        <field name="name">Sorry</field>
+        <field name="type">qweb</field>
+        <field name="url">/case-error</field>
+        <field name="website_published">True</field>
+        <field name="key">charity.case_error</field>
+        <field name="arch" type="xml">
+            <t name="Sorry" t-name="charity.case_error">
+                <t t-call="website.layout">
+                    <div id="wrap">
+                        <div class="container">
+                            <h1>عذرا</h1>
+                            <div class="row">
+                                <div class="col-lg-8">
+                                    <div class="alert alert-success" role="status">
+                                        عذرا: لا يتم تقديم طلب جديد إلا بعد مرور ستة أشهر
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </field>
+    </record>
+
+
+</odoo>

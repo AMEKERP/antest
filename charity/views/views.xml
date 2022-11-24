@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data>
+        <!--case sequence-->
+        <record id="case_seq" model="ir.sequence">
+            <field name="name">Case Seq</field>
+            <field name="code">case.seq</field>
+            <field name="prefix">CN</field>
+            <field name="padding">5</field>
+            <field eval="1" name="number_next"/>
+            <field eval="1" name="number_increment"/>
+            <field name="company_id" eval="False"/>
+        </record>
+        <!-- explicit list view definition -->
+        <record model="ir.ui.view" id="charity.list">
+            <field name="name">charity list</field>
+            <field name="model">charity.charity</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="case_seq"/>
+                    <field name="name"/>
+                    <field name="case_id"/>
+                    <field name="mobile"/>
+                    <field name="create_uid"/>
+
+                </tree>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="charity.form">
+            <field name="name">charity form</field>
+            <field name="model">charity.charity</field>
+            <field name="arch" type="xml">
+
+                <form>
+                    <header>
+<!--                        <button string="Share In Whatsapp" name="action_share_whatsapp" type="object" class="oe_highlight"-->
+<!--                                data-hotkey="w" icon="fa-whatsapp"-->
+<!--                        />-->
+                    </header>
+                    <sheet>
+                        <field name="case_seq"/>
+                        <group string="Case Information">
+                            <div>
+                                <group>
+                                    <field name="case_seq"/>
+                                    <field name="create_date"/>
+                                    <field name="name"/>
+<!--                                <field name="case_code"/>-->
+                                    <field name="job_title"/>
+                                    <field name="religion" widget="radio"/>
+                                    <field name="case_type"/>
+                                    <field name="nationality"/>
+
+                                    <field name="create_uid" readonly="1"/>
+
+                                </group>
+                            </div>
+                            <div>
+                                <group>
+                                    <field name="case_id"/>
+                                    <field name="social_state" widget="radio"/>
+                                    <field name="mobile"/>
+                                </group>
+                            </div>
+                        </group>
+                        <group string="Case Details">
+                            <div>
+                                <group>
+                                    <field name="currency_id"/>
+                                    <field name="main_income"/>
+                                    <field name="additional_income"/>
+                                    <field name="total_income"/>
+                                    <field name="basic_expenses"/>
+                                    <field name="debts_fines"/>
+                                </group>
+                            </div>
+                        </group>
+                        <group>
+                            <field name="details"/>
+                            <field name="details_of_last_aid"/>
+                            <field name="recommendation"/>
+                            <field name="comments"/>
+                        </group>
+                        <group string="Final Committee Decision">
+                            <field name="decision"/>
+                            <field name="last_update"/>
+
+                            <field name="cut_help_amount"/>
+                            <field name="ongoing_help_amount"/>
+
+                        </group>
+                         <group string="Files Uploaded">
+                            <div>
+                                <group>
+                                    <field name="bank_statement6m" />
+                                    <field name="salary_statement"/>
+                                    <field name="rent_copy"/>
+                                    <field name="rent_copy_last"/>
+                                    <field name="marriage_copy"/>
+                                    <field name="id_copy"/>
+                                    <field name="dept_copy"/>
+                                    <field name="widowed_copy"/>
+                                    <field name="help_book"/>
+                                </group>
+                            </div>
+                        </group>
+                        <group string="Note">
+                            <p>All spent help are for 6 months period then represented to the committee to be renewed or
+                                suspended
+                            </p>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="charity.action_window">
+            <field name="name">charity window</field>
+            <field name="res_model">charity.charity</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <!-- Top menu item -->
+
+        <menuitem name="charity" id="main_menu"/>
+        <menuitem name="Charity" id="charity.menu_1" parent="main_menu" action="charity.action_window"/>
+
+
+        <record model="ir.ui.view" id="cases_tree_view">
+            <field name="name">cases.tree</field>
+            <field name="model">charity.cases</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="description"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="cases_form_view">
+            <field name="name">cases.form</field>
+            <field name="model">charity.cases</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet string="Case Type">
+                        <group>
+                            <field name="name"/>
+                            <field name="description"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="cases_action_list">
+            <field name="name">cases window</field>
+            <field name="res_model">charity.cases</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem name="Case Types" id="case_menu" parent="main_menu" action="cases_action_list"/>
+    </data>
+</odoo>
