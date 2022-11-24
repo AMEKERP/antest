@@ -30,6 +30,7 @@
         'views/views.xml',
         'views/templates.xml',
         'views/web_form.xml',
+       # 'views/web_asset_backend_template.xml',
     ],
     'application': True,
     'installable': True,

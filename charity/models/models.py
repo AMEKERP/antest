@@ -57,6 +57,9 @@ class charity(models.Model):
     nationality = fields.Many2one('res.country', String='الجنسية')
     comments = fields.Text(string="تعليقات خاصه بالطلب")
 
+
+
+
     @api.onchange('main_income')
     def _total_income(self):
         self.total_income = self.main_income + self.additional_income
@@ -71,3 +74,4 @@ class charity(models.Model):
             vals['case_seq'] = self.env['ir.sequence'].next_by_code('case.seq') or 'New'
             result = super(charity, self).create(vals)
             return result
+

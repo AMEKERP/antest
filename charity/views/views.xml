@@ -32,6 +32,11 @@
             <field name="arch" type="xml">
 
                 <form>
+                    <header>
+<!--                        <button string="Share In Whatsapp" name="action_share_whatsapp" type="object" class="oe_highlight"-->
+<!--                                data-hotkey="w" icon="fa-whatsapp"-->
+<!--                        />-->
+                    </header>
                     <sheet>
                         <field name="case_seq"/>
                         <group string="Case Information">
@@ -72,15 +77,13 @@
                         </group>
                         <group>
                             <field name="details"/>
-                            <field name="recommendation"/>
-                            <field name="last_help_date"/>
                             <field name="details_of_last_aid"/>
-                            <field name="last_update"/>
+                            <field name="recommendation"/>
                             <field name="comments"/>
                         </group>
                         <group string="Final Committee Decision">
                             <field name="decision"/>
-<!--                            <field name="last_update"/>-->
+                            <field name="last_update"/>
 
                             <field name="cut_help_amount"/>
                             <field name="ongoing_help_amount"/>
@@ -89,7 +92,7 @@
                          <group string="Files Uploaded">
                             <div>
                                 <group>
-                                    <field name="bank_statement6m"/>
+                                    <field name="bank_statement6m" />
                                     <field name="salary_statement"/>
                                     <field name="rent_copy"/>
                                     <field name="rent_copy_last"/>
