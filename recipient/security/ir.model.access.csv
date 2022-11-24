@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_receipts_notes,receipts.notes,model_receipts_notes,base.group_user,1,1,1,1
+access_receipt_receipt,receipt.receipt,model_receipt_receipt,base.group_user,1,1,1,1
+access_collector_collector,collector.collector,model_collector_collector,base.group_user,1,1,1,1
