@@ -1,0 +1,305 @@
+<odoo>
+    <data>
+        <!-- explicit list view definition -->
+
+        <record model="ir.ui.view" id="abwab.list">
+            <field name="name">Abwab list</field>
+            <field name="model">abwab.abwab</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="civil_id"/>
+                    <field name="nationality"/>
+                    <field name="case_type"/>
+                    <field name="family_members"/>
+                    <field name="state"/>
+                    <field name="phone"/>
+                    <field name="case_details"/>
+                    <field name="decision"/>
+                </tree>
+            </field>
+        </record>
+
+        <!--form view for cases-->
+        <record model="ir.ui.view" id="abwab.form">
+            <field name="name">abwab form</field>
+            <field name="model">abwab.abwab</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <!--                        <button id="button_confirm" name="action_confirm" string="Confirm" class="btn-primary"-->
+                        <!--                                confirm="Are you sure that you need to confirm ?"-->
+                        <!--                                type="object"-->
+                        <!--                        attrs="{'invisible': [('status', 'not in', ['draft'])]}"/>-->
+                        <!--                        <button id="button_done" name="action_done" string="Mark As Done" class="btn-primary"-->
+                        <!--                                type="object"/>-->
+                        <!--                        <button id="button_draft" name="action_draft" string="Set To Draft" class="btn-primary"-->
+                        <!--                                states="cancel" type="object"/>-->
+                        <!--                        <button id="button_cancel" name="action_cancel" string="Cancel" states="draft,done,confirm"-->
+                        <!--                                confirm="Are you sure that you need to cancel ?"-->
+                        <!--                                type="object"/>-->
+                        <!--                        <field name="status" widget="statusbar" statusbar_visible="',done,confirm"/>-->
+                    </header>
+                    <sheet>
+                        <group string="بيانات مقدم الطلب">
+                            <div>
+                                <group>
+                                    <field name="name"/>
+                                    <field name="civil_id"/>
+                                    <field name="nationality"/>
+                                    <field name="case_type"/>
+                                    <field name="family_members"/>
+                                    <field name="state"/>
+                                    <field name="phone"/>
+                                    <field name="case_details"/>
+                                    <field name="create_uid"/>
+                                </group>
+                            </div>
+                        </group>
+                        <br/>
+                        <group string="بيانات داخلية">
+                            <div>
+                                <group>
+                                    <field name="responsible_for_case"/>
+                                    <field name="Temporarily_excluded" widget="boolean_toggle"/>
+                                    <field name="Final_excluded" widget="boolean_toggle"/>
+                                    <field name="case_relation_with_other"/>
+                                    <field name="case_degree"/>
+                                    <field name="decision"/>
+
+                                </group>
+                            </div>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <!-- actions opening views on models -->
+
+        <record model="ir.actions.act_window" id="abwab.action_window">
+            <field name="name">Abwab window</field>
+            <field name="res_model">abwab.abwab</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <!-- Top menu item -->
+
+        <menuitem name="مبرة ابواب الخير" id="main_menu"/>
+
+        <!-- menu categories -->
+
+        <menuitem name="قائمة الحالات" id="abwab.cases" parent="main_menu" action="abwab.action_window"/>
+
+        <!-- actions -->
+        <record model="ir.ui.view" id="types_tree_view">
+            <field name="name">types.tree</field>
+            <field name="model">abwab.help</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="description"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="types_form_view">
+            <field name="name">types.form</field>
+            <field name="model">abwab.help</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet string="Help Type">
+                        <group>
+                            <field name="name"/>
+                            <field name="description"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="types_action_list">
+            <field name="name">cases window</field>
+            <field name="res_model">abwab.help</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem name="أنواع المساعدات" id="types_menu" parent="main_menu" action="types_action_list"/>
+
+        <!--nation-->
+        <record model="ir.ui.view" id="nation_tree_view">
+            <field name="name">nation.tree</field>
+            <field name="model">nation.nation</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="nation_form_view">
+            <field name="name">types.form</field>
+            <field name="model">nation.nation</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet string="Help Type">
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="nation_action_list">
+            <field name="name">nations window</field>
+            <field name="res_model">nation.nation</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem name="الجنسيات" id="nations_menu" parent="main_menu" action="nation_action_list"/>
+
+        <record model="ir.actions.act_window" id="final_action_list">
+            <field name="name">final window</field>
+            <field name="res_model">abwab.final</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <record model="ir.ui.view" id="final_tree_view">
+            <field name="name">final.tree</field>
+            <field name="model">abwab.final</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="final_form_view">
+            <field name="name">final.form</field>
+            <field name="model">abwab.final</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet string="Final Help">
+                        <group string="البيانات الشخصية">
+                            <div>
+                                <group>
+                                    <field name="name"/>
+                                    <field name="id_type"/>
+                                    <field name="civil_id"/>
+                                    <field name="Identity_expiration_date"/>
+                                    <field name="nationality"/>
+                                    <field name="gender"/>
+                                    <field name="martial_status"/>
+                                    <field name="phone"/>
+                                </group>
+                            </div>
+                        </group>
+                        <group string="معلومات الأسرة">
+                            <div>
+                                <group>
+                                    <field name="family_members"/>
+                                    <field name="male_members"/>
+                                    <field name="female_members"/>
+                                    <field name="adults_members"/>
+                                    <field name="kids_members"/>
+                                </group>
+                            </div>
+                        </group>
+                        <group string="معلومات الوظيفة والدخل الشهري">
+                            <div>
+                                <group>
+                                    <field name="job_status"/>
+                                    <field name="job"/>
+                                    <field name="salary"/>
+                                    <field name="family_members_employees"/>
+                                    <field name="total_salaries_for_family"/>
+                                </group>
+                            </div>
+                        </group>
+                        <group string="الإلتزامات الشهرية والديون">
+                            <div>
+                                <group>
+                                    <field name="monthly_debits"/>
+                                    <field name="monthly_debits_value"/>
+                                    <field name="total_debits"/>
+                                    <field name="debits_for_people"/>
+                                    <field name="debits_prove"/>
+                                    <field name="total_debits_for_people"/>
+                                    <field name="monthly_rent"/>
+                                    <field name="total_debits_per_month"/>
+                                    <field name="study_fees"/>
+                                </group>
+                            </div>
+                        </group>
+                        <group string="معلومات التواصل والسكن">
+                            <div>
+                                <group>
+                                    <field name="state"/>
+                                    <field name="zone"/>
+                                    <field name="piece"/>
+                                    <field name="street"/>
+                                    <field name="elgada"/>
+                                    <field name="home"/>
+                                    <field name="floor"/>
+                                    <field name="flat"/>
+                                </group>
+                            </div>
+                        </group>
+                        <group string="المساعدات">
+                            <div>
+                                <group>
+                                    <field name="zakat_help"/>
+                                    <field name="zakat_help_value"/>
+                                    <field name="zakat_help_type"/>
+                                    <field name="other_charities_help"/>
+                                    <field name="help_details"/>
+                                </group>
+                            </div>
+                        </group>
+                        <group string="شرح الحالة">
+                            <div>
+                                <group>
+                                    <field name="help_details"/>
+                                </group>
+                            </div>
+                        </group>
+                         <group string="الاوراق المطلوبة للتقديم">
+                            <div>
+                                <group>
+                                    <field name="case_details_book" />
+                                    <field name="id_copy"/>
+                                    <field name="marriage_copy"/>
+                                    <field name="rent_copy_last"/>
+                                    <field name="employment_contract"/>
+                                    <field name="bank_statement6m"/>
+                                    <field name="dept_copy"/>
+                                    <field name="health_reports"/>
+                                    <field name="study_fees_report"/>
+                                    <field name="kuwait_cases"/>
+                                    <field name="iban"/>
+                                </group>
+                            </div>
+                        </group>
+                        <group string="تعهد بصحة البيانات">
+                            <div>
+                                <group>
+                                     <field name="true_date_sure"/>
+                                </group>
+                            </div>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+
+        <menuitem name="الطلبات النهائية" id="final_help_menu" parent="main_menu" action="final_action_list"/>
+
+
+
+
+    </data>
+
+
+</odoo>
