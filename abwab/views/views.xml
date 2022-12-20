@@ -53,6 +53,7 @@
                                     <field name="phone"/>
                                     <field name="case_details"/>
                                     <field name="create_uid"/>
+                                    <field name="create_date"/>
                                 </group>
                             </div>
                         </group>
@@ -191,6 +192,8 @@
                                     <field name="gender"/>
                                     <field name="martial_status"/>
                                     <field name="phone"/>
+                                    <field name="create_uid"/>
+                                    <field name="create_date"/>
                                 </group>
                             </div>
                         </group>
