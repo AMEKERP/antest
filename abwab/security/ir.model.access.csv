@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_abwab_help,abwab.help,model_abwab_help,base.group_user,1,1,1,1
+access_abwab_abwab,abwab.abwab,model_abwab_abwab,base.group_user,1,1,1,1
+access_nation_nation,nation.nation,model_nation_nation,base.group_user,1,1,1,1
+access_abwab_final,abwab.final,model_abwab_final,base.group_user,1,1,1,1
