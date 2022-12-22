@@ -69,6 +69,8 @@ class Abwab_final(models.Model):
     _description = 'abwab.final'
 
     name = fields.Char(string='الاسم كاملاً كما هو بالبطاقة المدنية أو الأمنية')
+    fhelp_seq = fields.Char(string='رقم الطلب النهائي', readonly=True, copy=False, default='New')
+
     id_type = fields.Selection([('بطاقة مدنية', 'بطاقة مدنية'), ('بطاقة أمنية', 'بطاقة أمنية'), ('أخري', 'أخري')],
                                string='نوع الهوية')
     civil_id = fields.Char(string='رقم الهوية')
@@ -135,14 +137,15 @@ class Abwab_final(models.Model):
     true_date_sure = fields.Selection([('نعم', 'نعم'), ('لا', 'لا')], string='اتعهد بصحة البيانات المقدمة في الطلب')
     associated_aid = fields.One2many('purchase.subscription', 'name', string="مساعدات مرتبطة")
 
+    @api.model
+    def create(self, vals):
+        if vals.get('fhelp_seq', 'New') == 'New':
+            vals['fhelp_seq'] = self.env['ir.sequence'].next_by_code('fhelp.seq') or 'New'
+            result = super(Abwab_final, self).create(vals)
+            return result
+
 
 class subscription_inherited(models.Model):
     _inherit = 'purchase.subscription'
 
     help_related = fields.Many2one('abwab.final', string='الحالة المرتبطة بالمساعدة')
-
-#
-# class user_inherited(models.Model):
-#     _inherit = 'res.users'
-#
-#     user_help_seq = fields.Many2one('abwab.abwab',string='help case number', related='create_uid.help_seq')
