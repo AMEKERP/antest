@@ -1,11 +1,6 @@
 # -*- coding: utf-8 -*-
-from odoo import http
-from odoo.http import request
 import base64
-import binascii
-import unicodedata
 from datetime import datetime, timedelta
-from dateutil.relativedelta import relativedelta
 from odoo import http
 from odoo.http import request
 from odoo import _
@@ -16,11 +11,9 @@ class ShowHelpCases(http.Controller):
     @http.route('/help_cases', auth='user', website="true", type="http")
     def display_help_cases(self, sortby=None, **kw):
         searchbar_sortings = {
-            # 'date': {'label': _('Newest'), 'order': 'create_date desc'},
             'name': {'label': _('Name'), 'order': 'name asc'},
         }
         if not sortby:
-            # sortby = 'date'
             sortby = 'name'
         order = searchbar_sortings[sortby]['order']
         print('requests  is running ok...')
@@ -61,34 +54,37 @@ class HelpRequest(http.Controller):
 
         })
 
-    @http.route('/create_final_help_request', auth='public', csrf=False, type='http', website=True, method=['POST'])
-    def create_final_help_request(self,civil_id, **kw):
+    @http.route('/create_final_help_request', auth='user', csrf=False, type='http', website=True, method=['POST'])
+    def create_final_help_request(self, civil_id, **kw):
         six_months_period_before = (datetime.now() - timedelta(days=180))
         if request.env['abwab.final'].sudo().search(
                 [('civil_id', '=', civil_id), ('create_date', '>', six_months_period_before)]):
-            # if request.env['charity.charity'].sudo().search([('case_id', '=', case_id),('x_studio_case_on', '=', True)]):
+            print('error')
             return request.render("abwab.help_error", {})
         else:
             request.env['abwab.final'].sudo().create({**kw,
-                'case_details_book': base64.b64encode(
-                    kw.get('case_details_book').read()),
-                'id_copy': base64.b64encode(
-                    kw.get('id_copy').read()),
-                'marriage_copy': base64.b64encode(kw.get('marriage_copy').read()),
-                'rent_copy_last': base64.b64encode(
-                    kw.get('rent_copy_last').read()),
-                'employment_contract': base64.b64encode(
-                    kw.get('employment_contract').read()),
-                'bank_statement6m': base64.b64encode(kw.get('bank_statement6m').read()),
-                'dept_copy': base64.b64encode(kw.get('dept_copy').read()),
-                'health_reports': base64.b64encode(
-                    kw.get('health_reports').read()),
-                'study_fees_report': base64.b64encode(kw.get('study_fees_report').read()),
-                'kuwait_cases': base64.b64encode(
-                    kw.get('kuwait_cases').read()),
-                'iban': base64.b64encode(
-                    kw.get('iban').read()),
-            })
+                                                      'civil_id': civil_id,
+                                                      'case_details_book': base64.b64encode(
+                                                          kw.get('case_details_book').read()),
+                                                      'id_copy': base64.b64encode(
+                                                          kw.get('id_copy').read()),
+                                                      'marriage_copy': base64.b64encode(kw.get('marriage_copy').read()),
+                                                      'rent_copy_last': base64.b64encode(
+                                                          kw.get('rent_copy_last').read()),
+                                                      'employment_contract': base64.b64encode(
+                                                          kw.get('employment_contract').read()),
+                                                      'bank_statement6m': base64.b64encode(
+                                                          kw.get('bank_statement6m').read()),
+                                                      'dept_copy': base64.b64encode(kw.get('dept_copy').read()),
+                                                      'health_reports': base64.b64encode(
+                                                          kw.get('health_reports').read()),
+                                                      'study_fees_report': base64.b64encode(
+                                                          kw.get('study_fees_report').read()),
+                                                      'kuwait_cases': base64.b64encode(
+                                                          kw.get('kuwait_cases').read()),
+                                                      'iban': base64.b64encode(
+                                                          kw.get('iban').read()),
+                                                      })
             nation_record = request.env['nation.nation'].sudo().search([])
             print("Help Created Successfully", kw)
             return request.render("abwab.final_help_thanks", {'nation_record': nation_record, })
@@ -114,21 +110,21 @@ class AbwabRequest(http.Controller):
         return request.render("abwab.help_thanks", {'nation_record': nation_record, })
 
 
-class AbwabFinalRequest(http.Controller):
-    @http.route('/final_help_form', auth='user', website=True, type="http")
-    def final_help_form(self, **kw):
-        print('final help form is running ok...', kw)
-        nation_record = request.env['nation.nation'].sudo().search([])
-        case_record = request.env['abwab.help'].sudo().search([])
-        return http.request.render('abwab.final_help_form', {
-            'nation_record': nation_record,
-            'case_record': case_record,
-
-        })
-
-    @http.route('/create_final_help_request', auth='public', csrf=False, type='http', website=True, method=['POST'])
-    def create_final_help_request(self, **kw):
-        request.env['abwab.final'].sudo().create({**kw})
-        nation_record = request.env['nation.nation'].sudo().search([])
-        print("Help Created Successfully", kw)
-        return request.render("abwab.help_thanks", {'nation_record': nation_record, })
+# class AbwabFinalRequest(http.Controller):
+#     @http.route('/final_help_form', auth='user', website=True, type="http")
+#     def final_help_form(self, **kw):
+#         print('final help form is running ok...', kw)
+#         nation_record = request.env['nation.nation'].sudo().search([])
+#         case_record = request.env['abwab.help'].sudo().search([])
+#         return http.request.render('abwab.final_help_form', {
+#             'nation_record': nation_record,
+#             'case_record': case_record,
+#
+#         })
+#
+#     @http.route('/create_final_help_request', auth='public', csrf=False, type='http', website=True, method=['POST'])
+#     def create_final_help_request(self, **kw):
+#         request.env['abwab.final'].sudo().create({**kw})
+#         nation_record = request.env['nation.nation'].sudo().search([])
+#         print("Help Created Successfully", kw)
+#         return request.render("abwab.help_thanks", {'nation_record': nation_record, })

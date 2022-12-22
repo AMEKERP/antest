@@ -6,12 +6,12 @@
         <field name="parent_id" ref="website.main_menu"/>
         <field name="sequence" type="int">51</field>
     </record>
-<!--    <record id="final_help_web_form" model="website.menu">-->
-<!--        <field name="name">تقديم طلب نهائي للمبرة</field>-->
-<!--        <field name="url">/final_help_form</field>-->
-<!--        <field name="parent_id" ref="website.main_menu"/>-->
-<!--        <field name="sequence" type="int">52</field>-->
-<!--    </record>-->
+    <!--    <record id="final_help_web_form" model="website.menu">-->
+    <!--        <field name="name">تقديم طلب نهائي للمبرة</field>-->
+    <!--        <field name="url">/final_help_form</field>-->
+    <!--        <field name="parent_id" ref="website.main_menu"/>-->
+    <!--        <field name="sequence" type="int">52</field>-->
+    <!--    </record>-->
     <!--form-->
     <template id="help_form" name="Help Form">
         <t t-call="website.layout">
@@ -62,19 +62,19 @@
                                 </select>
                             </div>
                             <div class="form.group">
-                                <label for="family_members" class="control_label">عدد أفراد الاسرة</label>
+                                <label for="family_members" class="control_label">* عدد أفراد الاسرة</label>
                                 <input type="number" name="family_members" t-att-value="family_members"
                                        id="family_members"
                                        class="form-control" required="true"/>
                             </div>
 
                             <div class="form.group">
-                                <label for="phone" class="control_label">رقم الهاتف</label>
+                                <label for="phone" class="control_label">* رقم الهاتف</label>
                                 <input type="number" name="phone" t-att-value="phone" id="phone" class="form-control"
                                        required="true"/>
                             </div>
                             <div class="form.group">
-                                <label for="case_details" class="control_label">شرح مختصر للحالة</label>
+                                <label for="case_details" class="control_label">* شرح مختصر للحالة</label>
                                 <input type="text" name="case_details" t-att-value="case_details" id="case_details"
                                        class="form-control" required="true"/>
                             </div>
@@ -92,612 +92,616 @@
             </div>
         </t>
     </template>
-
+    <!--final form-->
     <template id="final_help_form" name="Final Help Form">
         <t t-call="website.layout">
             <div class="wrap">
                 <div class="oe_structure">
                     <div class="container" dir="rtl" style="text-align:right">
-                        <form role="form" method="POST" action="/create_final_help_request" enctype='multipart/form-data'>
-                            <div>
-                                <h2>البيانات الشخصية</h2>
-                            </div>
+                        <form role="form" method="POST" action="/create_final_help_request"
+                              enctype='multipart/form-data'>
+                        <div>
+                            <h2>البيانات الشخصية</h2>
+                        </div>
 
 
+                        <div class="row">
+                            <div class="col">
+                                <label for="name" class="form-label">الاسم كاملاً كما هو بالبطاقة المدنية أو
+                                    الأمنية
+                                </label>
+                                <input name="name" id="name" type="text" class="form-control"
+                                       t-att-value="help_case.name" placeholder="" readonly=""/>
 
-                            <div class="row">
-                                <div class="col">
-                                    <label for="name" class="form-label">الاسم كاملاً كما هو بالبطاقة المدنية أو
-                                        الأمنية
-                                    </label>
-                                    <input name="name" id="name" type="text" class="form-control"
-                                           t-att-value="help_case.name" placeholder="" readonly=""/>
-
-                                </div>
-                                <div class="col">
-                                    <label for="civil_id" class="form-label">رقم الهوية</label>
-                                    <input name="civil_id" id="civil_id" type="int" class="form-control"
-                                           t-att-value="help_case.civil_id" placeholder="رقم الهوية" minlength="12"
-                                           maxlength="12" readonly=""/>
-                                </div>
-                                <div class="col">
-                                    <label for="id_type" class="form-label">نوع الهوية</label>
-                                    <select name="id_type" class="form-control">
-                                        <option t-attf-value="بطاقة مدنية">بطاقة مدنية</option>
-                                        <option t-attf-value="بطاقة أمنية">بطاقة أمنية</option>
-                                        <option t-attf-value="اخري">اخري</option>
-                                    </select>
-
-                                </div>
                             </div>
-                            <br/>
-
-                            <div class="row">
-                                <div class="col">
-                                    <label for="Identity_expiration_date" class="form-label">تاريخ انتهاء صلاحية الهوية
-                                    </label>
-                                    <input name="Identity_expiration_date" id="Identity_expiration_date" type="date"
-                                           class="form-control"
-                                           t-att-value="(datetime.date.today()).strftime('%Y-%m-%d')"/>
-
-                                </div>
-                                <div class="col">
-                                    <label for="nationality" class="form-label">الجنسية</label>
-                                    <select name="nationality" class="form-control" required="true" >
-                                        <t t-foreach="nation_record" t-as="nation">
-                                            <option t-esc="nation.name" t-att-value="nation.id"/>
-                                        </t>
-                                    </select>
-<!--                                    <input name="nationality" id="nationality" type="text"-->
-<!--                                           class="form-control"-->
-<!--                                           t-esc="help_case.nationality.name"  readonly=""/>-->
-                                </div>
-                                <div class="col">
-                                    <label for="gender" class="form-label">الجنس</label>
-                                    <select name="gender" class="form-control">
-                                        <option t-attf-value="أنثي">أنثي</option>
-                                        <option t-attf-value="ذكر">ذكر</option>
-                                    </select>
-
-                                </div>
+                            <div class="col">
+                                <label for="civil_id" class="form-label">رقم الهوية</label>
+                                <input name="civil_id" id="civil_id" type="int" class="form-control"
+                                       t-att-value="help_case.civil_id" placeholder="رقم الهوية" minlength="12"
+                                       maxlength="12" readonly=""/>
                             </div>
-                            <br/>
-                            <div class="row">
-                                <div class="col">
-                                    <label for="phone" class="form-label">رقم الهاتف</label>
-                                    <input name="phone" id="phone" type="number" class="form-control"
-                                           t-att-value="help_case.phone" placeholder="رقم الهاتف" readonly=""/>
-                                </div>
-                                <div class="col">
-                                    <label for="martial_status" class="form-label">الحالة الاجتماعية</label>
-                                    <select name="martial_status" class="form-control">
-                                        <option t-attf-value="اعزب/عزباء">اعزب/عزباء</option>
-                                        <option t-attf-value="متزوج/متزوجة">متزوج/متزوجة</option>
-                                        <option t-attf-value="مطلق/مطلقة">مطلق/مطلقة</option>
-                                        <option t-attf-value="أرمل/أرملة">أرمل/أرملة</option>
-                                        <option t-attf-value="أسر سجناء">أسر سجناء</option>
-                                    </select>
+                            <div class="col">
+                                <label for="id_type" class="form-label">نوع الهوية</label>
+                                <select name="id_type" class="form-control" required="true">
+                                    <option t-attf-value="بطاقة مدنية">بطاقة مدنية</option>
+                                    <option t-attf-value="بطاقة أمنية">بطاقة أمنية</option>
+                                    <option t-attf-value="اخري">اخري</option>
+                                </select>
+
+                            </div>
+                        </div>
+                        <br/>
+
+                        <div class="row">
+                            <div class="col">
+                                <label for="Identity_expiration_date" class="form-label">تاريخ انتهاء صلاحية الهوية
+                                </label>
+                                <input name="Identity_expiration_date" id="Identity_expiration_date" type="date"
+                                       class="form-control" required="true"
+                                       t-att-value="(datetime.date.today()).strftime('%Y-%m-%d')"/>
+
+                            </div>
+                            <div class="col">
+                                <label for="nationality" class="form-label">الجنسية</label>
+                                <select name="nationality" class="form-control" required="true">
+                                    <t t-foreach="nation_record" t-as="nation">
+                                        <option t-esc="nation.name" t-att-value="nation.id"/>
+                                    </t>
+                                </select>
+
+                            </div>
+                            <div class="col">
+                                <label for="gender" class="form-label">الجنس</label>
+                                <select name="gender" class="form-control" required="true">
+                                    <option t-attf-value="أنثي">أنثي</option>
+                                    <option t-attf-value="ذكر">ذكر</option>
+                                </select>
+
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <div class="col">
+                                <label for="phone" class="form-label">رقم الهاتف</label>
+                                <input name="phone" id="phone" type="number" class="form-control"
+                                       t-att-value="help_case.phone" placeholder="رقم الهاتف" readonly=""/>
+                            </div>
+                            <div class="col">
+                                <label for="martial_status" class="form-label">الحالة الاجتماعية</label>
+                                <select name="martial_status" class="form-control" required="true">
+                                    <option t-attf-value="اعزب/عزباء">اعزب/عزباء</option>
+                                    <option t-attf-value="متزوج/متزوجة">متزوج/متزوجة</option>
+                                    <option t-attf-value="مطلق/مطلقة">مطلق/مطلقة</option>
+                                    <option t-attf-value="أرمل/أرملة">أرمل/أرملة</option>
+                                    <option t-attf-value="أسر سجناء">أسر سجناء</option>
+                                </select>
 
 
-                                </div>
                             </div>
+                        </div>
 
-                            <br/>
-                            <hr/>
-                            <div>
-                                <h2>معلومات الأسرة</h2>
+                        <br/>
+                        <hr/>
+                        <div>
+                            <h2>معلومات الأسرة</h2>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="family_members" class="form-label">عدد أفراد الأسرة</label>
+                                <input name="family_members" type="number" class="form-control" required="true"
+                                       id="family_members" t-att-value="help_case.family_members"/>
                             </div>
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <label for="family_members" class="form-label">عدد أفراد الأسرة</label>
-                                    <input name="family_members" type="number" class="form-control"
-                                           id="family_members" t-att-value="help_case.family_members"/>
-                                </div>
-                                <div class="col-md-4">
-                                    <label for="male_members" class="form-label">عدد الذكور</label>
-                                    <input name="male_members" type="number" class="form-control" id="male_members"/>
-                                </div>
-                                <div class="col-md-4">
-                                    <label for="female_members" class="form-label">عدد الإناث</label>
-                                    <input name="female_members" type="number" class="form-control"
-                                           id="female_members"/>
-                                </div>
+                            <div class="col-md-4">
+                                <label for="male_members" class="form-label">عدد الذكور</label>
+                                <input name="male_members" type="number" class="form-control" id="male_members"
+                                       required="true"/>
                             </div>
-                            <br/>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label for="adults_members" class="form-label">عدد البالغين (أكبر من ١٠ سنوات)</label>
-                                    <input name="adults_members" type="number" class="form-control"
-                                           id="adults_members"/>
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="kids_members" class="form-label">عدد الاطفال (أصغر من ١٠ سنوات)</label>
-                                    <input name="kids_members" type="number" class="form-control" id="kids_members"/>
-                                </div>
+                            <div class="col-md-4">
+                                <label for="female_members" class="form-label">عدد الإناث *</label>
+                                <input name="female_members" type="number" class="form-control" required="true"
+                                       id="female_members"/>
                             </div>
-                            <br/>
-                             <hr/>
-                            <div>
-                                <h2>معلومات الوظيفة والدخل الشهري</h2>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="adults_members" class="form-label">عدد البالغين (أكبر من ١٠ سنوات)
+                                </label>
+                                <input name="adults_members" type="number" class="form-control" required="true"
+                                       id="adults_members"/>
                             </div>
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <label for="kids_members" class="form-label">الحالة الوظيفية</label>
-                                    <select name="martial_status" class="form-control">
-                                        <option t-attf-value="يعمل">يعمل</option>
-                                        <option t-attf-value="عاطل عن العمل">عاطل عن العمل</option>
-                                        <option t-attf-value="يعمل باليومية">ميعمل باليومية</option>
-                                        <option t-attf-value="عاجز عن العمل">عاجز عن العمل</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-4">
-                                    <label for="job" class="form-label">الوظيفة</label>
-                                    <input name="job" type="text" class="form-control" id="job"/>
-                                </div>
-                                <div class="col-md-4">
-                                    <label for="salary" class="form-label">الراتب (الراتب الشهري أو الدخل الشهري تقريبا في حال العمل باليومية)</label>
-                                    <input name="salary" type="number" class="form-control" id="salary"/>
-                                </div>
+                            <div class="col-md-6">
+                                <label for="kids_members" class="form-label">عدد الاطفال (أصغر من ١٠ سنوات)</label>
+                                <input name="kids_members" type="number" class="form-control" id="kids_members"
+                                       required="true"/>
                             </div>
-                            <br/>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <label for="family_members_employees" class="form-label">عدد العاملين في الأسرة
-                                    </label>
-                                    <input name="family_members_employees" type="number" class="form-control"
-                                           id="family_members_employees"/>
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="total_salaries_for_family" class="form-label">مجموع رواتب العاملين في
-                                        الأسرة
-                                    </label>
-                                    <input name="total_salaries_for_family" type="number" class="form-control"
-                                           id="total_salaries_for_family"/>
-                                </div>
+                        </div>
+                        <br/>
+                        <hr/>
+                        <div>
+                            <h2>معلومات الوظيفة والدخل الشهري</h2>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="kids_members" class="form-label">الحالة الوظيفية</label>
+                                <select name="martial_status" class="form-control" required="true">
+                                    <option t-attf-value="يعمل">يعمل</option>
+                                    <option t-attf-value="عاطل عن العمل">عاطل عن العمل</option>
+                                    <option t-attf-value="يعمل باليومية">ميعمل باليومية</option>
+                                    <option t-attf-value="عاجز عن العمل">عاجز عن العمل</option>
+                                </select>
                             </div>
-                            <br/>
-                             <hr/>
-                            <div>
-                                <h2>الإلتزامات الشهرية والديون</h2>
+                            <div class="col-md-4">
+                                <label for="job" class="form-label">الوظيفة</label>
+                                <input name="job" type="text" class="form-control" id="job" required="true"/>
                             </div>
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <label for="monthly_debits" class="form-label">هل لديك أقساط شهرية مطلوبة للبنوك أو
-                                        الشركات
-                                    </label>
-                                    <select name="monthly_debits" class="form-control">
-                                        <option t-attf-value="نعم">نعم</option>
-                                        <option t-attf-value="لا">لا</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-4">
-                                    <label for="monthly_debits_value" class="form-label">قيمة الاقساط الشهرية</label>
-                                    <input name="monthly_debits_value" type="number" class="form-control"
-                                           id="monthly_debits_value"/>
-                                </div>
-                                <div class="col-md-4">
-                                    <label for="total_debits" class="form-label">قيمة الدين</label>
-                                    <input name="total_debits" type="number" class="form-control" id="total_debits"/>
-                                </div>
+                            <div class="col-md-4">
+                                <label for="salary" class="form-label">الراتب (الراتب الشهري أو الدخل الشهري تقريبا
+                                    في حال العمل باليومية)
+                                </label>
+                                <input name="salary" type="number" class="form-control" id="salary" required="true"/>
                             </div>
-                            <br/>
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <label for="debits_for_people" class="form-label">هل لديك ديون مستحقة للأفراد ؟
-                                    </label>
-                                    <select name="debits_for_people" class="form-control">
-                                        <option t-attf-value="نعم">نعم</option>
-                                        <option t-attf-value="لا">لا</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-4">
-                                    <label for="debits_prove" class="form-label">هل يوجد إثبات رسمي للديون ؟</label>
-                                    <select name="debits_prove" class="form-control">
-                                        <option t-attf-value="نعم">نعم</option>
-                                        <option t-attf-value="لا">لا</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-4">
-                                    <label for="total_debits_for_people" class="form-label">مجموع الديون المستحقة
-                                        للأفراد
-                                    </label>
-                                    <input name="total_debits_for_people" type="number" class="form-control"
-                                           id="total_debits_for_people"/>
-                                </div>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="family_members_employees" class="form-label">عدد العاملين في الأسرة
+                                </label>
+                                <input name="family_members_employees" type="number" class="form-control"
+                                       id="family_members_employees" required="true"/>
                             </div>
-                            <br/>
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <label for="monthly_rent" class="form-label">قيمة الإيجار الشهري</label>
-                                    <input name="monthly_rent" type="number" class="form-control"
-                                           id="monthly_rent"/>
-                                </div>
-                                <div class="col-md-4">
-                                    <label for="total_debits_per_month" class="form-label">مجموع الإلتزامات الشهرية
-                                        للأسرة
-                                    </label>
-                                    <input name="total_debits_per_month" type="number" class="form-control"
-                                           id="total_debits_per_month"/>
-                                </div>
-                                <div class="col-md-4">
-                                    <label for="study_fees" class="form-label">الرسوم الدراسية للأبناء إن وجد</label>
-                                    <input name="study_fees" type="number" class="form-control" id="study_fees"/>
-                                </div>
+                            <div class="col-md-6">
+                                <label for="total_salaries_for_family" class="form-label">مجموع رواتب العاملين في
+                                    الأسرة
+                                </label>
+                                <input name="total_salaries_for_family" type="number" class="form-control"
+                                       required="true"
+                                       id="total_salaries_for_family"/>
                             </div>
-                            <br/>
-                             <hr/>
-                            <div>
-                                <h2>معلومات التواصل والسكن</h2>
+                        </div>
+                        <br/>
+                        <hr/>
+                        <div>
+                            <h2>الإلتزامات الشهرية والديون</h2>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="monthly_debits" class="form-label">هل لديك أقساط شهرية مطلوبة للبنوك أو
+                                    الشركات
+                                </label>
+                                <select name="monthly_debits" class="form-control" required="true">
+                                    <option t-attf-value="نعم">نعم</option>
+                                    <option t-attf-value="لا">لا</option>
+                                </select>
                             </div>
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <label for="state" class="control_label">* المحافظة</label>
-<!--                                    <select class="form-control" name="state" required="true">-->
-<!--                                        <option t-attf-value="الاحمدي">الاحمدي</option>-->
-<!--                                        <option t-attf-value="مبارك الكبير">مبارك الكبير</option>-->
-<!--                                        <option t-attf-value="العاصمة">العاصمة</option>-->
-<!--                                        <option t-attf-value="حولي">حولي</option>-->
-<!--                                        <option t-attf-value="الفروانية">الفروانية</option>-->
-<!--                                        <option t-attf-value="العاصمة">الجهراء</option>-->
-<!--                                    </select>-->
-                                     <input name="state" id="state" type="text" class="form-control"
-                                           t-att-value="help_case.state" readonly=""/>
+                            <div class="col-md-4">
+                                <label for="monthly_debits_value" class="form-label">قيمة الاقساط الشهرية</label>
+                                <input name="monthly_debits_value" type="number" class="form-control" required="true"
+                                       id="monthly_debits_value"/>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="total_debits" class="form-label">قيمة الدين</label>
+                                <input name="total_debits" type="number" class="form-control" id="total_debits"
+                                       required="true"/>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="debits_for_people" class="form-label">هل لديك ديون مستحقة للأفراد ؟
+                                </label>
+                                <select name="debits_for_people" class="form-control" required="true">
+                                    <option t-attf-value="نعم">نعم</option>
+                                    <option t-attf-value="لا">لا</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="debits_prove" class="form-label">هل يوجد إثبات رسمي للديون ؟</label>
+                                <select name="debits_prove" class="form-control" required="true">
+                                    <option t-attf-value="نعم">نعم</option>
+                                    <option t-attf-value="لا">لا</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="total_debits_for_people" class="form-label">مجموع الديون المستحقة
+                                    للأفراد
+                                </label>
+                                <input name="total_debits_for_people" type="number" class="form-control" required="true"
+                                       id="total_debits_for_people"/>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="monthly_rent" class="form-label">قيمة الإيجار الشهري</label>
+                                <input name="monthly_rent" type="number" class="form-control" required="true"
+                                       id="monthly_rent"/>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="total_debits_per_month" class="form-label">مجموع الإلتزامات الشهرية
+                                    للأسرة
+                                </label>
+                                <input name="total_debits_per_month" type="number" class="form-control" required="true"
+                                       id="total_debits_per_month"/>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="study_fees" class="form-label">الرسوم الدراسية للأبناء إن وجد</label>
+                                <input name="study_fees" type="number" class="form-control" id="study_fees"
+                                       required="true"/>
+                            </div>
+                        </div>
+                        <br/>
+                        <hr/>
+                        <div>
+                            <h2>معلومات التواصل والسكن</h2>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="state" class="control_label">* المحافظة</label>
+                                <!--                                    <select class="form-control" name="state" required="true">-->
+                                <!--                                        <option t-attf-value="الاحمدي">الاحمدي</option>-->
+                                <!--                                        <option t-attf-value="مبارك الكبير">مبارك الكبير</option>-->
+                                <!--                                        <option t-attf-value="العاصمة">العاصمة</option>-->
+                                <!--                                        <option t-attf-value="حولي">حولي</option>-->
+                                <!--                                        <option t-attf-value="الفروانية">الفروانية</option>-->
+                                <!--                                        <option t-attf-value="العاصمة">الجهراء</option>-->
+                                <!--                                    </select>-->
+                                <input name="state" id="state" type="text" class="form-control"
+                                       t-att-value="help_case.state" readonly=""/>
 
-                                </div>
-                                <div class="col-md-4">
-                                    <label for="zone" class="form-label">المنطقة</label>
-                                    <input name="zone" type="text" class="form-control" id="zone"/>
-                                </div>
-                                <div class="col-md-4">
-                                    <label for="piece" class="form-label">القطعة</label>
-                                    <input name="piece" type="number" class="form-control" id="piece"/>
-                                </div>
                             </div>
-                            <br/>
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <label for="street" class="form-label">الشارع</label>
-                                    <input name="street" type="text" class="form-control" id="street"/>
-                                </div>
-                                <div class="col-md-4">
-                                    <label for="elgada" class="form-label">الجادة</label>
-                                    <input name="elgada" type="number" class="form-control" id="elgada"/>
-                                </div>
-                                <div class="col-md-4">
-                                    <label for="home" class="form-label">المنزل</label>
-                                    <input name="home" type="number" class="form-control" id="home"/>
-                                </div>
+                            <div class="col-md-4">
+                                <label for="zone" class="form-label">المنطقة</label>
+                                <input name="zone" type="text" class="form-control" id="zone" required="true"/>
                             </div>
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <label for="floor" class="form-label">الدور</label>
-                                    <input name="floor" type="number" class="form-control" id="floor"/>
-                                </div>
-                                <div class="col-md-4">
-                                    <label for="flat" class="form-label">الشقة</label>
-                                    <input name="flat" type="number" class="form-control" id="flat"/>
-                                </div>
+                            <div class="col-md-4">
+                                <label for="piece" class="form-label">القطعة</label>
+                                <input name="piece" type="number" class="form-control" id="piece" required="true"/>
                             </div>
-                            <br/>
-                             <hr/>
-                            <div>
-                                <h2>المساعدات</h2>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="street" class="form-label">الشارع</label>
+                                <input name="street" type="text" class="form-control" id="street" required="true"/>
                             </div>
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <label for="zakat_help" class="control_label">هل يساعدك بيت الزكاة ؟</label>
-                                    <select class="form-control" name="zakat_help">
-                                        <option t-attf-value="نعم">نعم</option>
-                                        <option t-attf-value="لا">لا</option>
-                                    </select>
-                                </div>
-                                <div class="col-md-4">
-                                    <label for="zakat_help_value" class="form-label">قيمة المساعدة</label>
-                                    <input name="zakat_help_value" type="number" class="form-control"
-                                           id="zakat_help_value"/>
-                                </div>
-                                <div class="col-md-4">
-                                    <label for="zakat_help_type" class="control_label">نوع المساعدة</label>
-                                    <select class="form-control" name="zakat_help_type">
-                                        <option t-attf-value="شهري">شهري</option>
-                                        <option t-attf-value="كل شهرين">كل شهرين</option>
-                                        <option t-attf-value="كل ثلاث شهور">كل ثلاث شهور</option>
-                                        <option t-attf-value="كل اربع شهور">كل اربع شهور</option>
-                                        <option t-attf-value="كل ستة اشهر">كل ستة أشهر</option>
-                                        <option t-attf-value="سنوي">سنوي</option>
-                                    </select>
-                                </div>
+                            <div class="col-md-4">
+                                <label for="elgada" class="form-label">الجادة</label>
+                                <input name="elgada" type="number" class="form-control" id="elgada"/>
                             </div>
-                            <br/>
-                            <div class="row">
-                                <label for="other_charities_help" class="form-label">هل تساعدك لجان خيرية أخرى ؟</label>
-                                <input name="other_charities_help" type="text" class="form-control"
-                                       id="other_charities_help"/>
+                            <div class="col-md-4">
+                                <label for="home" class="form-label">المنزل</label>
+                                <input name="home" type="number" class="form-control" id="home" required="true"/>
                             </div>
-                            <br/>
-                            <div class="row">
-                                <label for="help_details" class="form-label">شرح مختصر للحالة</label>
-                                <input name="help_details" type="text" class="form-control"
-                                       id="help_details"/>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="floor" class="form-label">الدور</label>
+                                <input name="floor" type="number" class="form-control" id="floor"/>
                             </div>
-                            <br/>
-                             <hr/>
-                            <div>
-                                <h2>الملفات المطلوبة</h2>
+                            <div class="col-md-4">
+                                <label for="flat" class="form-label">الشقة</label>
+                                <input name="flat" type="number" class="form-control" id="flat"/>
                             </div>
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <label for="case_details_book" class="control_label">كتاب شرح الحالة *</label>
-                                    <input type="file" accept="image/*,application/pdf"  multiple="true"
-                                           name="case_details_book" id="case_details_book"
-                                           t-att-value="case_details_book"
-                                           class="form-control"/>
-                                </div>
-                                <div class="col-md-4">
-                                    <label for="id_copy" class="control_label">صورة البطاقات المدنية من الجهتين *
-                                    </label>
-                                    <input type="file" accept="image/*,application/pdf" multiple="true"
-                                           name="id_copy" id="id_copy" t-att-value="id_copy"
-                                           class="form-control"/>
-                                </div>
-                                <div class="col-md-4">
-                                    <label for="marriage_copy" class="control_label">صوره عقد الزواج + خلو زوجية من سن
-                                        18 *
-                                    </label>
-                                    <input type="file" accept="image/*,application/pdf"  multiple="true"
-                                           name="marriage_copy" id="marriage_copy" t-att-value="marriage_copy"
-                                           class="form-control"/>
-                                </div>
+                        </div>
+                        <br/>
+                        <hr/>
+                        <div>
+                            <h2>المساعدات</h2>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label for="zakat_help" class="control_label">هل يساعدك بيت الزكاة ؟</label>
+                                <select class="form-control" name="zakat_help" required="true">
+                                    <option t-attf-value="نعم">نعم</option>
+                                    <option t-attf-value="لا">لا</option>
+                                </select>
                             </div>
-                            <br/>
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <label for="rent_copy_last" class="control_label">صوره عقد ايجار + اخر وصل ايجار *</label>
-                                    <input type="file" accept="image/*,application/pdf" multiple="true"
-                                           name="rent_copy_last" id="rent_copy_last"
-                                           t-att-value="rent_copy_last"
-                                           class="form-control"/>
-                                </div>
-                                <div class="col-md-4">
-                                    <label for="employment_contract" class="control_label"> عقد العمل او شهادة الراتب ان وجدت *
-                                    </label>
-                                    <input type="file" accept="image/*,application/pdf"  multiple="true"
-                                           name="employment_contract" id="employment_contract" t-att-value="employment_contract"
-                                           class="form-control"/>
-                                </div>
-                                <div class="col-md-4">
-                                    <label for="bank_statement6m" class="control_label">
-                                        كشف حساب من البنك أخر 6 شهور
-                                    </label>
-                                    <input type="file" accept="image/*,application/pdf" multiple="true"
-                                           name="bank_statement6m" id="bank_statement6m" t-att-value="bank_statement6m"
-                                           class="form-control"/>
-                                </div>
+                            <div class="col-md-4">
+                                <label for="zakat_help_value" class="form-label">قيمة المساعدة</label>
+                                <input name="zakat_help_value" type="number" class="form-control"
+                                       id="zakat_help_value" placeholder=" في حالة عدم وجود مساعدة اكتب الرقم 0"/>
                             </div>
-                            <br/>
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <label for="dept_copy" class="control_label">اثباتات مديونيات او حكم محكمة *</label>
-                                    <input type="file" accept="image/*,application/pdf"  multiple="true"
-                                           name="dept_copy" id="dept_copy"
-                                           t-att-value="dept_copy"
-                                           class="form-control"/>
-                                </div>
-                                <div class="col-md-4">
-                                    <label for="health_reports" class="control_label"> التقارير الطبية ان وجدت
-                                    </label>
-                                    <input type="file" accept="image/*,application/pdf"  multiple="true"
-                                           name="health_reports" id="health_reports" t-att-value="health_reports"
-                                           class="form-control"/>
-                                </div>
-                                <div class="col-md-4">
-                                    <label for="study_fees_report" class="control_label">
-                                        الرسوم الدراسية ان وجدت
-                                    </label>
-                                    <input type="file" accept="image/*,application/pdf"  multiple="true"
-                                           name="study_fees_report" id="study_fees_report" t-att-value="study_fees_report"
-                                           class="form-control"/>
-                                </div>
+                            <div class="col-md-4">
+                                <label for="zakat_help_type" class="control_label">نوع المساعدة</label>
+                                <select class="form-control" name="zakat_help_type">
+                                    <option t-attf-value="شهري">شهري</option>
+                                    <option t-attf-value="كل شهرين">كل شهرين</option>
+                                    <option t-attf-value="كل ثلاث شهور">كل ثلاث شهور</option>
+                                    <option t-attf-value="كل اربع شهور">كل اربع شهور</option>
+                                    <option t-attf-value="كل ستة اشهر">كل ستة أشهر</option>
+                                    <option t-attf-value="سنوي">سنوي</option>
+                                </select>
                             </div>
-                            <br/>
-                             <div class="row">
-                                <div class="col-md-6">
-                                    <label for="kuwait_cases" class="control_label">شهادة لمن يهمه الامر من التأمينات للكويتي</label>
-                                    <input type="file" accept="image/*,application/pdf"  multiple="true"
-                                           name="kuwait_cases" id="kuwait_cases"
-                                           t-att-value="kuwait_cases"
-                                           class="form-control"/>
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="iban" class="control_label"> شهادة ايبان
-                                    </label>
-                                    <input type="file" accept="image/*,application/pdf"  multiple="true"
-                                           name="iban" id="iban" t-att-value="iban"
-                                           class="form-control"/>
-                                </div>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <label for="other_charities_help" class="form-label">هل تساعدك لجان خيرية أخرى ؟</label>
+                            <input name="other_charities_help" type="text" class="form-control" required="true"
+                                   id="other_charities_help"/>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <label for="help_details" class="form-label">شرح مختصر للحالة</label>
+                            <input name="help_details" type="text" class="form-control" required="true"
+                                   id="help_details"/>
+                        </div>
+                        <br/>
+                        <hr/>
+                        <div>
+                            <h2>الملفات المطلوبة</h2>
+                        </div>
+                        <div class="form.group">
+                            <label for="case_details_book" class="control_label">كتاب شرح الحالة</label>
+                            <input type="file" accept="image/*,application/pdf" multiple="true"
+                                   name="case_details_book" id="case_details_book"
+                                   t-att-value="case_details_book"
+                                   class="form-control"/>
+                        </div>
+                        <div class="form.group">
+                            <label for="id_copy" class="control_label">صورة البطاقات المدنية من الجهتين *
+                            </label>
+                            <input type="file" accept="image/*,application/pdf" multiple="true"
+                                   name="id_copy" id="id_copy" t-att-value="id_copy" required="true"
+                                   class="form-control"/>
+                        </div>
+                        <div class="form.group">
+                            <label for="marriage_copy" class="control_label">صوره عقد الزواج + خلو زوجية من سن
+                                18 *
+                            </label>
+                            <input type="file" accept="image/*,application/pdf" multiple="true" required="true"
+                                   name="marriage_copy" id="marriage_copy" t-att-value="marriage_copy"
+                                   class="form-control"/>
+                        </div>
+                        <div class="form.group">
+                            <label for="rent_copy_last" class="control_label">صوره عقد ايجار + اخر وصل ايجار *
+                            </label>
+                            <input type="file" accept="image/*,application/pdf" multiple="true" required="true"
+                                   name="rent_copy_last" id="rent_copy_last"
+                                   t-att-value="rent_copy_last"
+                                   class="form-control"/>
+                        </div>
+                        <div class="form.group">
+                            <label for="employment_contract" class="control_label">عقد العمل او شهادة الراتب ان
+                                وجدت *
+                            </label>
+                            <input type="file" accept="image/*,application/pdf" multiple="true"
+                                   name="employment_contract" id="employment_contract"
+                                   t-att-value="employment_contract"
+                                   class="form-control"/>
+                        </div>
+                        <div class="form.group">
+                            <label for="bank_statement6m" class="control_label">
+                                * كشف حساب من البنك أخر 6 شهور
+                            </label>
+                            <input type="file" accept="image/*,application/pdf" multiple="true"
+                                   name="bank_statement6m" id="bank_statement6m" t-att-value="bank_statement6m"
+                                   required="true"
+                                   class="form-control"/>
+                        </div>
+                        <div class="form.group">
+                            <label for="dept_copy" class="control_label">اثباتات مديونيات او حكم محكمة</label>
+                            <input type="file" accept="image/*,application/pdf" multiple="true"
+                                   name="dept_copy" id="dept_copy"
+                                   t-att-value="dept_copy"
+                                   class="form-control"/>
+                        </div>
+                        <div class="form.group">
+                            <label for="health_reports" class="control_label">التقارير الطبية ان وجدت
+                            </label>
+                            <input type="file" accept="image/*,application/pdf" multiple="true"
+                                   name="health_reports" id="health_reports" t-att-value="health_reports"
+                                   class="form-control"/>
+                        </div>
+                        <div class="form.group">
+                            <label for="study_fees_report" class="control_label">
+                                الرسوم الدراسية ان وجدت
+                            </label>
+                            <input type="file" accept="image/*,application/pdf" multiple="true"
+                                   name="study_fees_report" id="study_fees_report"
+                                   t-att-value="study_fees_report"
+                                   class="form-control"/>
+                        </div>
+                        <div class="form.group">
+                            <label for="kuwait_cases" class="control_label">شهادة لمن يهمه الامر من التأمينات
+                                للكويتي
+                            </label>
+                            <input type="file" accept="image/*,application/pdf" multiple="true"
+                                   name="kuwait_cases" id="kuwait_cases"
+                                   t-att-value="kuwait_cases"
+                                   class="form-control"/>
+                        </div>
+                        <div class="form.group">
+                            <label for="iban" class="control_label">شهادة ايبان *
+                            </label>
+                            <input type="file" accept="image/*,application/pdf" multiple="true" required="true"
+                                   name="iban" id="iban" t-att-value="iban"
+                                   class="form-control"/>
+                        </div>
+        <br/>
+        <div class="row">
+            <label for="true_date_sure" class="control_label">اتعهد بصحة البيانات المقدمة في
+                الطلب(في حال وجود معلومات غير صحيحة يُستبعد الطلب)
+            </label>
+            <select class="form-control" name="true_date_sure">
+                <option t-attf-value="نعم">نعم</option>
+                <option t-attf-value="لا">لا</option>
+            </select>
+        </div>
+        <br/>
+        <hr/>
+        <div class="clearfix oe_login_buttons">
+            <button type="submit" class="btn btn-primary pull-left s_website_form_send">ارسال
+                الطلب
+            </button>
+        </div>
+        <br/>
+    </form>
+</div>
+        </div>
+        </div>
+        </t>
+        </template>
+        <!--help case menu item-->
+<template id="portal_my_home_menu_help_cases" name="Portal layout : Help Cases menu entries"
+          inherit_id="portal.portal_breadcrumbs" priority="21">
+<xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+    <li t-if="page_name == 'help_case'" t-attf-class="breadcrumb-item #{'active ' if not help_case else ''}">
+        <a t-if="help_case" t-attf-href="/help_cases">طلبات المبرة</a>
+        <t t-else="">طلبات المبرة</t>
+    </li>
+    <li t-if="help_case" class="breadcrumb-item active">
+        <t t-esc="help_case.name"/>
+    </li>
+</xpath>
+</template>
+        <!--portal my help requests-->
+<template id="portal_my_help_cases" name="My Help Cases">
+<t t-call="portal.portal_layout">
+    <t t-set="breadcrumbs_searchbar" t-value="True"/>
+
+    <t t-call="portal.portal_searchbar">
+        <t t-set="title">طلبات المساعدة الاولية</t>
+    </t>
+    <t t-if="not help_cases">
+        <p>لا توجد طلبات</p>
+    </t>
+    <t t-if="help_cases" t-call="portal.portal_table">
+        <thead>
+            <tr class="active">
+                <th class="text-right">رقم الطلب</th>
+                <th class="text-right">اسم الطلب</th>
+                <th class="text-right">الرقم المدني</th>
+                <th class="text-right">حالة الطلب</th>
+                <th class="text-right">مقدم الطلب</th>
+            </tr>
+        </thead>
+        <t t-foreach="help_cases" t-as="case">
+            <tr>
+                <td class="text-right">
+                    <t t-esc="case.help_seq"/>
+                </td>
+                <td class="text-right">
+                    <t t-esc="case.name"/>
+                    <!--                            <a t-attf-href="/cases/{{ slug(case) }}">-->
+                    <!--                                <t t-esc="case.case_seq"/>-->
+                    <!--                            </a>-->
+                </td>
+                <td class="text-right">
+                    <t t-esc="case.civil_id"/>
+                </td>
+                <td class="text-right">
+                    <t t-esc="case.decision"/>
+                </td>
+                <td class="text-right">
+                    <t t-esc="case.create_uid.name"/>
+                </td>
+                <td class="text-right">
+                    <t t-if="case.decision == 'موافقة'">
+                        <a t-attf-href="/help_cases/{{ slug(case) }}">
+                            <!--                                    <t t-esc="case.name"/>-->
+                            <button type="submit" class="btn btn-outline-success">استكمال الطلب
+                            </button>
+                        </a>
+                    </t>
+                </td>
+            </tr>
+        </t>
+    </t>
+</t>
+</template>
+        <!--help cases counter-->
+<template id="portal_my_home_help_cases" name="Show Help Cases" inherit_id="portal.portal_my_home"
+          customize_show="True">
+<xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+    <t t-call="portal.portal_docs_entry">
+        <t t-set="title">طلبات المبرة</t>
+        <t t-set="url" t-value="'/help_cases'"/>
+        <t t-set="placeholder_count" t-value="'count_help_cases'"/>
+    </t>
+</xpath>
+</template>
+
+        <!--success-->
+<record id="help_thanks" model="website.page">
+<field name="name">Thanks</field>
+<field name="type">qweb</field>
+<field name="url">/help-thank-you</field>
+<field name="website_published">True</field>
+<field name="key">abwab.help_thanks</field>
+<field name="arch" type="xml">
+    <t name="Thanks" t-name="abwab.case_thanks">
+        <t t-call="website.layout">
+            <div id="wrap">
+                <div class="container">
+                    <h1>تم تقديم طلبك المبدأي بنجاح</h1>
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <div class="alert alert-success" role="status">
+                                علماً بأن تسجيل الطلب لا يعني الموافقة عليه، حيث تعرض الطلبات على اللجنة المختصة
+                                ثم تتم دراسة الطلبات وتقديم الأكثر حاجة.
+                                في حالة الموافقة على الطلب سيتم التواصل معكم ، وطلب الأوراق الرسمية التي تثبت
+                                صحة الإجابات.
                             </div>
-                            <br/>
-                            <div class="row">
-                                    <label for="true_date_sure" class="control_label">اتعهد بصحة البيانات المقدمة في الطلب(في حال وجود معلومات غير صحيحة يُستبعد الطلب)</label>
-                                    <select class="form-control" name="true_date_sure">
-                                        <option t-attf-value="نعم">نعم</option>
-                                        <option t-attf-value="لا">لا</option>
-                                    </select>
-                            </div>
-                            <br/>
-                             <hr/>
-                            <div class="clearfix oe_login_buttons">
-                                <button type="submit" class="btn btn-primary pull-left s_website_form_send">ارسال
-                                    الطلب
-                                </button>
-                            </div>
-                            <br/>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </t>
-    </template>
-
-     <template id="portal_my_home_menu_help_cases" name="Portal layout : Help Cases menu entries"
-              inherit_id="portal.portal_breadcrumbs" priority="21">
-        <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
-            <li t-if="page_name == 'help_case'" t-attf-class="breadcrumb-item #{'active ' if not help_case else ''}">
-                <a t-if="help_case" t-attf-href="/help_cases">طلبات المبرة</a>
-                <t t-else="">طلبات المبرة</t>
-            </li>
-            <li t-if="help_case" class="breadcrumb-item active">
-                <t t-esc="help_case.name"/>
-            </li>
-        </xpath>
-    </template>
-    <!--portal my help requests-->
-    <template id="portal_my_help_cases" name="My Help Cases">
-        <t t-call="portal.portal_layout">
-            <t t-set="breadcrumbs_searchbar" t-value="True"/>
-
-            <t t-call="portal.portal_searchbar">
-                <t t-set="title">طلبات المساعدة الاولية</t>
-            </t>
-            <t t-if="not help_cases">
-                <p>لا توجد طلبات</p>
-            </t>
-            <t t-if="help_cases" t-call="portal.portal_table">
-                <thead>
-                    <tr class="active">
-<!--                        <th>رقم الطلب</th>-->
-                        <th class="text-right">اسم الطلب</th>
-<!--                        <th class="text-right">تاريخ الطلب</th>-->
-                        <th class="text-right">الرقم المدني</th>
-                        <th class="text-right">قرار اللجنة</th>
-                        <th class="text-right">مقدم الطلب</th>
-
-                    </tr>
-                </thead>
-                <t t-foreach="help_cases" t-as="case">
-                    <tr>
-                        <td class="text-right">
-                            <t t-if="not case.decision == 'موافقة'">
-                                <t t-esc="case.name"/>
-                            </t>
-                            <t t-if="case.decision == 'موافقة'">
-                                <a t-attf-href="/help_cases/{{ slug(case) }}">
-                                   <t t-esc="case.name"/>
-                                </a>
-                            </t>
-<!--                            <a t-attf-href="/cases/{{ slug(case) }}">-->
-<!--                                <t t-esc="case.case_seq"/>-->
-<!--                            </a>-->
-                        </td>
-<!--                        <td class="text-right">-->
-<!--                            <t t-esc="case.name"/>-->
-<!--                        </td>-->
-<!--                        <td class="text-right">-->
-<!--                            <t t-esc="case.create_date.date()"/>-->
-<!--                        </td>-->
-                        <td class="text-right">
-                            <t t-esc="case.civil_id"/>
-                        </td>
-                        <td class="text-right">
-                            <t t-esc="case.decision"/>
-                        </td>
-                        <td class="text-right">
-                            <t t-esc="case.create_uid.name"/>
-                        </td>
-                    </tr>
-                </t>
-            </t>
+    </t>
+</field>
+</record>
+        <!-- final help error -->
+<record id="final_help_thanks" model="website.page">
+<field name="name">Thanks</field>
+<field name="type">qweb</field>
+<field name="url">/final-help-thank-you</field>
+<field name="website_published">True</field>
+<field name="key">abwab.final_help_thanks</field>
+<field name="arch" type="xml">
+    <t name="Thanks" t-name="abwab.final_case_thanks">
+        <t t-call="website.layout">
+            <div id="wrap">
+                <div class="container">
+                    <h1>تم تقديم طلبك بنجاح</h1>
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <div class="alert alert-success" role="status">
+                                تتم الان مراجعة طلبك وسوف يتم ابلاغك بقرار اللجنة .
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </t>
-    </template>
-    <template id="portal_my_home_help_cases" name="Show Help Cases" inherit_id="portal.portal_my_home" customize_show="True">
-        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
-            <t t-call="portal.portal_docs_entry">
-                <t t-set="title">طلبات المبرة</t>
-                <t t-set="url" t-value="'/help_cases'"/>
-                <t t-set="placeholder_count" t-value="'count_help_cases'"/>
-            </t>
-        </xpath>
-    </template>
+    </t>
+</field>
+</record>
+        <!--error-->
+<record id="help_error" model="website.page">
+<field name="name">Sorry</field>
+<field name="type">qweb</field>
+<field name="url">/help-error</field>
+<field name="website_published">True</field>
+<field name="key">abwab.help_error</field>
+<field name="arch" type="xml">
+    <t name="Sorry" t-name="abwab.help_error">
+        <t t-call="website.layout">
+            <div id="wrap">
+                <div class="container">
+                    <h1>عذرا</h1>
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <div class="alert alert-success" role="status">
+                                عذرا: لا يتم تقديم طلب جديد إلا بعد مرور ستة أشهر
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+    </t>
+</field>
+</record>
 
-    <!--success-->
-    <record id="help_thanks" model="website.page">
-        <field name="name">Thanks</field>
-        <field name="type">qweb</field>
-        <field name="url">/help-thank-you</field>
-        <field name="website_published">True</field>
-        <field name="key">abwab.help_thanks</field>
-        <field name="arch" type="xml">
-            <t name="Thanks" t-name="abwab.case_thanks">
-                <t t-call="website.layout">
-                    <div id="wrap">
-                        <div class="container">
-                            <h1>تم تقديم طلبك المبدأي بنجاح</h1>
-                            <div class="row">
-                                <div class="col-lg-8">
-                                    <div class="alert alert-success" role="status">
-                                        علماً بأن تسجيل الطلب لا يعني الموافقة عليه، حيث تعرض الطلبات على اللجنة المختصة
-                                        ثم تتم دراسة الطلبات وتقديم الأكثر حاجة.
-                                        في حالة الموافقة على الطلب سيتم التواصل معكم ، وطلب الأوراق الرسمية التي تثبت
-                                        صحة الإجابات.
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </t>
-            </t>
-        </field>
-    </record>
-    <record id="final_help_thanks" model="website.page">
-        <field name="name">Thanks</field>
-        <field name="type">qweb</field>
-        <field name="url">/final-help-thank-you</field>
-        <field name="website_published">True</field>
-        <field name="key">abwab.final_help_thanks</field>
-        <field name="arch" type="xml">
-            <t name="Thanks" t-name="abwab.final_case_thanks">
-                <t t-call="website.layout">
-                    <div id="wrap">
-                        <div class="container">
-                            <h1>تم تقديم طلبك بنجاح</h1>
-                            <div class="row">
-                                <div class="col-lg-8">
-                                    <div class="alert alert-success" role="status">
-                                        تتم الان مراجعة طلبك وسوف  يتم ابلاغك بقرار اللجنة .
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </t>
-            </t>
-        </field>
-    </record>
-    <!--error-->
-    <record id="help_error" model="website.page">
-        <field name="name">Sorry</field>
-        <field name="type">qweb</field>
-        <field name="url">/help-error</field>
-        <field name="website_published">True</field>
-        <field name="key">abwab.help_error</field>
-        <field name="arch" type="xml">
-            <t name="Sorry" t-name="abwab.help_error">
-                <t t-call="website.layout">
-                    <div id="wrap">
-                        <div class="container">
-                            <h1>عذرا</h1>
-                            <div class="row">
-                                <div class="col-lg-8">
-                                    <div class="alert alert-success" role="status">
-                                        عذرا: لا يتم تقديم طلب جديد إلا بعد مرور ستة أشهر
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </t>
-            </t>
-        </field>
-    </record>
-
-</odoo>
+        </odoo>

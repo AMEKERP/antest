@@ -36,6 +36,7 @@ class AbwabCases(models.Model):
     status = fields.Selection([('draft', 'Draft'), ('confirm', 'Confirmed'),
                                ('done', 'Done'), ('cancel', 'Cancelled')], default='draft',
                               string="Status", tracking=True)
+    help_seq = fields.Char(string='رقم الطلب المبدأي', readonly=True, copy=False, default='New')
 
     # def action_confirm(self):
     #     self.status = 'confirm'
@@ -48,6 +49,12 @@ class AbwabCases(models.Model):
     #
     # def action_cancel(self):
     #     self.status = 'cancel'
+    @api.model
+    def create(self, vals):
+        if vals.get('help_seq', 'New') == 'New':
+            vals['help_seq'] = self.env['ir.sequence'].next_by_code('help.seq') or 'New'
+            result = super(AbwabCases, self).create(vals)
+            return result
 
 
 class Nation(models.Model):
@@ -89,8 +96,8 @@ class Abwab_final(models.Model):
                                       string='هل لديك أقساط شهرية مطلوبة للبنوك أو الشركات ؟')
     monthly_debits_value = fields.Float(string='قيمة الاقساط الشهرية')
     total_debits = fields.Float(string='قيمة الدين (مجموع الديون المستحقة للبنك أو للشركة)')
-    debits_for_people = fields.Selection([('نعم', 'نعم'), ('لا', 'لا')],string='هل لديك ديون مستحقة للأفراد ؟')
-    debits_prove = fields.Selection([('نعم', 'نعم'), ('لا', 'لا')],string='هل يوجد إثبات رسمي للديون ؟')
+    debits_for_people = fields.Selection([('نعم', 'نعم'), ('لا', 'لا')], string='هل لديك ديون مستحقة للأفراد ؟')
+    debits_prove = fields.Selection([('نعم', 'نعم'), ('لا', 'لا')], string='هل يوجد إثبات رسمي للديون ؟')
     total_debits_for_people = fields.Float(string='مجموع الديون المستحقة للأفراد')
     monthly_rent = fields.Float(string='قيمة الإيجار الشهري')
     total_debits_per_month = fields.Float(string='مجموع الإلتزامات الشهرية للأسرة')
@@ -105,12 +112,13 @@ class Abwab_final(models.Model):
     home = fields.Integer(string='المنزل')
     floor = fields.Integer(string='الدور')
     flat = fields.Integer(string='الشقة')
-    zakat_help = fields.Selection([('نعم', 'نعم'), ('لا', 'لا')],string='هل يساعدك بيت الزكاة ؟')
+    zakat_help = fields.Selection([('نعم', 'نعم'), ('لا', 'لا')], string='هل يساعدك بيت الزكاة ؟')
     zakat_help_value = fields.Float(string='قيمة المساعدة')
     zakat_help_type = fields.Selection(
         [('شهري', 'شهري'), ('كل شهرين', 'كل شهرين'), ('كل ثلاث شهور', 'كل ثلاث شهور'), ('كل اربع شهور', 'كل اربع شهور'),
          ('كل ست شهور', 'كل ست شهور'), ('سنوي', 'سنوي')], string='نوع المساعدة')
-    other_charities_help = fields.Text(string='هل تساعدك لجان خيرية أخرى ؟ (يرجى كتابة أسماء اللجان وقيمة المساعدة ونوعها - مثال تساعدني (اسم اللجنة) بقيمة ١٥٠ د.ك كل سنة مرة - أو تموين أو إيجار أو رسوم دراسية .. إلخ)')
+    other_charities_help = fields.Text(
+        string='هل تساعدك لجان خيرية أخرى ؟ (يرجى كتابة أسماء اللجان وقيمة المساعدة ونوعها - مثال تساعدني (اسم اللجنة) بقيمة ١٥٠ د.ك كل سنة مرة - أو تموين أو إيجار أو رسوم دراسية .. إلخ)')
     help_details = fields.Text(string='شرح مختصر للحالة (يرجى شرح مختصر للحالة ، وأهم جوانب العجز للأسرة)')
 
     case_details_book = fields.Binary(string="كتاب شرح الحالة")
@@ -124,6 +132,17 @@ class Abwab_final(models.Model):
     study_fees_report = fields.Binary(string="الرسوم الدراسية ان وجدت")
     kuwait_cases = fields.Binary(string="شهادة لمن يهمه الامر من التأمينات للكويتي")
     iban = fields.Binary(string="شهادة ايبان")
-    true_date_sure = fields.Selection([('نعم', 'نعم'), ('لا', 'لا')],string='اتعهد بصحة البيانات المقدمة في الطلب')
+    true_date_sure = fields.Selection([('نعم', 'نعم'), ('لا', 'لا')], string='اتعهد بصحة البيانات المقدمة في الطلب')
+    associated_aid = fields.One2many('purchase.subscription', 'name', string="مساعدات مرتبطة")
 
 
+class subscription_inherited(models.Model):
+    _inherit = 'purchase.subscription'
+
+    help_related = fields.Many2one('abwab.final', string='الحالة المرتبطة بالمساعدة')
+
+#
+# class user_inherited(models.Model):
+#     _inherit = 'res.users'
+#
+#     user_help_seq = fields.Many2one('abwab.abwab',string='help case number', related='create_uid.help_seq')
