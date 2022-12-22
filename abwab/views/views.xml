@@ -10,6 +10,16 @@
             <field name="number_increment">1</field>
             <field name="company_id" eval="False"/>
         </record>
+
+        <record id="fhelp_seq" model="ir.sequence">
+            <field name="name">Final Help Seq</field>
+            <field name="code">fhelp.seq</field>
+            <field name="prefix">FHN</field>
+            <field name="padding">5</field>
+            <field name="number_next">1</field>
+            <field name="number_increment">1</field>
+            <field name="company_id" eval="False"/>
+        </record>
         <!-- explicit list view definition -->
 
         <record model="ir.ui.view" id="abwab.list">
@@ -38,18 +48,6 @@
             <field name="arch" type="xml">
                 <form>
                     <header>
-                        <!--                        <button id="button_confirm" name="action_confirm" string="Confirm" class="btn-primary"-->
-                        <!--                                confirm="Are you sure that you need to confirm ?"-->
-                        <!--                                type="object"-->
-                        <!--                        attrs="{'invisible': [('status', 'not in', ['draft'])]}"/>-->
-                        <!--                        <button id="button_done" name="action_done" string="Mark As Done" class="btn-primary"-->
-                        <!--                                type="object"/>-->
-                        <!--                        <button id="button_draft" name="action_draft" string="Set To Draft" class="btn-primary"-->
-                        <!--                                states="cancel" type="object"/>-->
-                        <!--                        <button id="button_cancel" name="action_cancel" string="Cancel" states="draft,done,confirm"-->
-                        <!--                                confirm="Are you sure that you need to cancel ?"-->
-                        <!--                                type="object"/>-->
-                        <!--                        <field name="status" widget="statusbar" statusbar_visible="',done,confirm"/>-->
                     </header>
                     <sheet>
                         <field name="help_seq"/>
@@ -182,6 +180,7 @@
             <field name="model">abwab.final</field>
             <field name="arch" type="xml">
                 <tree>
+                    <field name="fhelp_seq"/>
                     <field name="name"/>
                 </tree>
             </field>
@@ -193,9 +192,11 @@
             <field name="arch" type="xml">
                 <form>
                     <sheet string="Final Help">
+                        <field name="fhelp_seq"/>
                         <group string="البيانات الشخصية">
                             <div>
                                 <group>
+                                    <field name="fhelp_seq"/>
                                     <field name="name"/>
                                     <field name="id_type"/>
                                     <field name="civil_id"/>
@@ -277,23 +278,7 @@
                                 </group>
                             </div>
                         </group>
-                        <!--                        <group string="الاوراق المطلوبة للتقديم">-->
-                        <!--                            <div>-->
-                        <!--                                <group>-->
-                        <!--                                    <field name="case_details_book"/>-->
-                        <!--                                    <field name="id_copy"/>-->
-                        <!--                                    <field name="marriage_copy"/>-->
-                        <!--                                    <field name="rent_copy_last"/>-->
-                        <!--                                    <field name="employment_contract"/>-->
-                        <!--                                    <field name="bank_statement6m"/>-->
-                        <!--                                    <field name="dept_copy"/>-->
-                        <!--                                    <field name="health_reports"/>-->
-                        <!--                                    <field name="study_fees_report"/>-->
-                        <!--                                    <field name="kuwait_cases"/>-->
-                        <!--                                    <field name="iban"/>-->
-                        <!--                                </group>-->
-                        <!--                            </div>-->
-                        <!--                        </group>-->
+
                         <group string="تعهد بصحة البيانات">
                             <div>
                                 <group>
@@ -335,13 +320,6 @@
 
                             </page>
                         </notebook>
-                        <!--                        <group string="في حالة القرار بالمساعدة">-->
-                        <!--                            <div>-->
-                        <!--                                <group>-->
-                        <!--                                     <field name="associated_aid"/>-->
-                        <!--                                </group>-->
-                        <!--                            </div>-->
-                        <!--                        </group>-->
                     </sheet>
                 </form>
             </field>
