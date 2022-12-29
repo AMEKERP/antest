@@ -169,14 +169,12 @@
                             <div class="col">
                                 <label for="martial_status" class="form-label">الحالة الاجتماعية</label>
                                 <select name="martial_status" class="form-control" required="true">
-                                    <option t-attf-value="اعزب/عزباء">اعزب/عزباء</option>
-                                    <option t-attf-value="متزوج/متزوجة">متزوج/متزوجة</option>
-                                    <option t-attf-value="مطلق/مطلقة">مطلق/مطلقة</option>
-                                    <option t-attf-value="أرمل/أرملة">أرمل/أرملة</option>
+                                    <option t-attf-value="اعزب">اعزب</option>
+                                    <option t-attf-value="متزوج">متزوج</option>
+                                    <option t-attf-value="مطلق">مطلق</option>
+                                    <option t-attf-value="أرمل">أرمل</option>
                                     <option t-attf-value="أسر سجناء">أسر سجناء</option>
                                 </select>
-
-
                             </div>
                         </div>
 
@@ -223,11 +221,11 @@
                         </div>
                         <div class="row">
                             <div class="col-md-4">
-                                <label for="kids_members" class="form-label">الحالة الوظيفية</label>
-                                <select name="martial_status" class="form-control" required="true">
+                                <label for="job_status" class="form-label">الحالة الوظيفية</label>
+                                <select name="job_status" class="form-control" required="true">
                                     <option t-attf-value="يعمل">يعمل</option>
                                     <option t-attf-value="عاطل عن العمل">عاطل عن العمل</option>
-                                    <option t-attf-value="يعمل باليومية">ميعمل باليومية</option>
+                                    <option t-attf-value="يعمل باليومية">يعمل باليومية</option>
                                     <option t-attf-value="عاجز عن العمل">عاجز عن العمل</option>
                                 </select>
                             </div>
@@ -472,7 +470,7 @@
                         </div>
                         <div class="form.group">
                             <label for="bank_statement6m" class="control_label">
-                                * كشف حساب من البنك أخر 6 شهور
+                                 كشف حساب من البنك أخر 6 شهور *
                             </label>
                             <input type="file" accept="image/*,application/pdf" multiple="true"
                                    name="bank_statement6m" id="bank_statement6m" t-att-value="bank_statement6m"

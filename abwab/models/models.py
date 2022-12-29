@@ -13,6 +13,7 @@ class AbwabTypes(models.Model):
 
 class AbwabCases(models.Model):
     _name = 'abwab.abwab'
+    _inherit = ['mail.thread','mail.activity.mixin']
     _description = 'abwab.abwab'
 
     name = fields.Char(string='الاسم')
@@ -66,6 +67,7 @@ class Nation(models.Model):
 
 class Abwab_final(models.Model):
     _name = 'abwab.final'
+    _inherit = ['mail.thread','mail.activity.mixin']
     _description = 'abwab.final'
 
     name = fields.Char(string='الاسم كاملاً كما هو بالبطاقة المدنية أو الأمنية')
@@ -78,8 +80,8 @@ class Abwab_final(models.Model):
     nationality = fields.Many2one('nation.nation', string='الجنسية')
     gender = fields.Selection([('ذكر', 'ذكر'), ('أنثي', 'أنثي')], string='الجنس')
     martial_status = fields.Selection(
-        [('اعزب/عزباء', 'اعزب/عزباء'), ('متزوج/متزوجة', 'متزوج/متزوجة'), ('مطلق/مطلقة', 'مطلق/مطلقة'),
-         ('أرمل/أرملة', 'أرمل/أرملة'), ('أسر سجناء', 'أسر سجناء')],
+        [('اعزب', 'اعزب'), ('متزوج', 'متزوج'), ('مطلق', 'مطلق'),
+         ('أرمل', 'أرمل'), ('أسر سجناء', 'أسر سجناء')],
         string='الحالة الاجتماعية')
     phone = fields.Char(string='رقم الهاتف')
     family_members = fields.Integer(string='عدد أفراد الأسرة')
@@ -136,6 +138,7 @@ class Abwab_final(models.Model):
     iban = fields.Binary(string="شهادة ايبان")
     true_date_sure = fields.Selection([('نعم', 'نعم'), ('لا', 'لا')], string='اتعهد بصحة البيانات المقدمة في الطلب')
     associated_aid = fields.One2many('purchase.subscription', 'name', string="مساعدات مرتبطة")
+    decision_ids = fields.One2many('decisions.decisions', 'decision_id', string='قرارات الاعضاء')
 
     @api.model
     def create(self, vals):
@@ -149,3 +152,15 @@ class subscription_inherited(models.Model):
     _inherit = 'purchase.subscription'
 
     help_related = fields.Many2one('abwab.final', string='الحالة المرتبطة بالمساعدة')
+
+
+class decisions(models.Model):
+    _name = "decisions.decisions"
+    _description = "decisions.decisions"
+
+    name = fields.Char(string='نص القرار')
+    member = fields.Many2one('res.users', string='عضو اللجنة')
+    member_type = fields.Selection([('رئيس اللجنة', 'رئيس اللجنة'), ('مقرر اللجنة', 'مقرر اللجنة'), ('عضو', 'عضو')],
+                                   string='صفة العضو')
+    decision_id = fields.Many2one('abwab.final', string="رقم الطلب",readonly=True)
+

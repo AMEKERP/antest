@@ -82,6 +82,11 @@
                             </div>
                         </group>
                     </sheet>
+                      <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
                 </form>
             </field>
         </record>
@@ -267,7 +272,6 @@
                                     <field name="zakat_help_value"/>
                                     <field name="zakat_help_type"/>
                                     <field name="other_charities_help"/>
-                                    <field name="help_details"/>
                                 </group>
                             </div>
                         </group>
@@ -283,6 +287,13 @@
                             <div>
                                 <group>
                                     <field name="true_date_sure"/>
+                                </group>
+                            </div>
+                        </group>
+                        <group string="قرارات الاعضاء">
+                            <div>
+                                <group>
+                                    <field name="decision_ids"/>
                                 </group>
                             </div>
                         </group>
@@ -320,7 +331,17 @@
 
                             </page>
                         </notebook>
+                        <group string="Note">
+                            <p>كل المساعدات المصروفة مدتها 6 أشهر ثم تعرض على اللجنة للتجديد أو الإيقاف
+
+                            </p>
+                        </group>
                     </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids"/>
+                        <field name="activity_ids"/>
+                        <field name="message_ids"/>
+                    </div>
                 </form>
             </field>
         </record>
@@ -356,6 +377,50 @@
                 </xpath>
             </field>
         </record>
+
+        <!-- decision -->
+
+        <record model="ir.actions.act_window" id="decision_action_list">
+            <field name="name">decision window</field>
+            <field name="res_model">decisions.decisions</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <record model="ir.ui.view" id="decision_tree_view">
+            <field name="name">decision.tree</field>
+            <field name="model">decisions.decisions</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="create_date" string="تاريخ الانشاء"/>
+                    <field name="name" string="القرار"/>
+                    <field name="member_type"/>
+                    <field name="decision_id"/>
+                    <field name="member"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="decision_form_view">
+            <field name="name">decision.form</field>
+            <field name="model">decisions.decisions</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="member"/>
+                            <field name="member_type"/>
+                            <field name="decision_id" readonly=""/>
+                            <field name="create_uid"/>
+                            <field name="create_date"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <menuitem name="قرارات الاعضاء" id="decision_menu" parent="main_menu" action="decision_action_list"/>
+
 
     </data>
 

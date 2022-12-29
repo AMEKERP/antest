@@ -1,0 +1,474 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <report
+            id="final_help_report"
+            model="abwab.final"
+            string="تقرير الحالة النهائي"
+            report_type="qweb-pdf"
+            name="abwab.report_last"
+            file="abwab.report_last"
+    />
+    <template id="report_last">
+        <t t-name="abwab.report_last">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="web.external_layout">
+                        <div class="page">
+                            <link rel="stylesheet" href="/abwab/static/src/css/style.css"/>
+                            <h3 class="text-center arabic"
+                                style="background-color: gray; color: white; margin: 5px 0;">إفادة اللجنة عن الحالة
+                            </h3>
+                            <div width="100%" class="text-right arabic" style=" text-align: right;">
+                                <table width="100%" class="text-right arabic" style=" text-align: right;">
+                                    <tbody class="text-right arabic" style=" text-align: right;">
+                                        <tr>
+                                            <td>
+                                                <span class="text-right arabic">
+                                                    <strong>رقم الهاتف</strong>
+                                                    :
+                                                    <span t-field="o.phone"/>
+                                                </span>
+
+                                            </td>
+
+
+                                            <td>
+                                                <span>
+                                                    <span t-field="o.fhelp_seq"/>
+
+                                                    :
+                                                    <strong>رقم الطلب</strong>
+                                                </span>
+
+                                            </td>
+
+                                            <td>
+                                                <span class="text-right arabic">
+                                                    <strong>تاريخ الطلب</strong>
+                                                    :
+                                                    <span t-field="o.create_date"/>
+                                                </span>
+
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <span class="text-right arabic">
+                                                    <strong>الجنسية</strong>
+                                                    :
+                                                    <span t-field="o.nationality"/>
+                                                </span>
+                                            </td>
+
+                                            <td>
+                                                <span>
+                                                    <strong class="text-right arabic">الاسم</strong>
+                                                    :
+                                                    <span t-field="o.name"/>
+                                                </span>
+
+                                            </td>
+
+
+                                            <td>
+                                                <span class="text-right arabic">
+                                                    <strong>الجنس</strong>
+                                                    :
+                                                    <span class="text-left" t-field="o.gender"/>
+                                                </span>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <span class="text-right arabic">
+                                                    <strong>رقم الهوية</strong>
+                                                    :
+                                                    <span t-field="o.civil_id"/>
+                                                </span>
+
+                                            </td>
+                                            <td>
+                                                <span class="text-right arabic">
+                                                    <strong>نوع الهوية</strong>
+                                                    :
+                                                    <span t-field="o.id_type"/>
+                                                </span>
+
+                                            </td>
+                                            <td>
+                                                <span class="text-right arabic">
+                                                    <strong>تاريخ انتهاء صلاحية الهوية</strong>
+                                                    :
+                                                    <span t-field="o.Identity_expiration_date"/>
+                                                </span>
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                                <br/>
+
+                                <h3 class="text-center arabic"
+                                    style="background-color: gray; color: white; margin: 5px 0;">
+                                    معلومات الأسرة
+                                </h3>
+                                <table width="100%" class="text-right arabic" style="text-align: right;">
+                                    <tbody class="text-right arabic" style=" text-align: right;">
+                                        <tr>
+                                            <td>
+                                                <span class="text-right arabic">
+                                                    <strong>عدد الإناث</strong>
+                                                    :
+                                                    <span t-field="o.female_members"/>
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <span class="text-right arabic">
+                                                    <strong>عدد الذكور</strong>
+                                                    :
+                                                    <span t-field="o.male_members"/>
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <span class="text-right arabic">
+                                                    <strong>عدد أفراد الأسرة</strong>
+                                                    :
+                                                    <span t-field="o.family_members"/>
+                                                </span>
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <span class="text-right arabic">
+                                                    <strong>عدد البالغين</strong>
+                                                    :
+                                                    <span t-field="o.adults_members"/>
+                                                </span>
+
+                                            </td>
+                                            <td>
+                                                <span class="text-right arabic">
+                                                    <strong>عدد الأطفال</strong>
+                                                    :
+                                                    <span t-field="o.kids_members"/>
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <span class="text-right arabic"
+                                                      style="font-size: 1em; margin: 5px 0; padding: 0px 0px;">
+                                                    <strong>الحالة الاجتماعية</strong>
+                                                    :
+                                                </span>
+                                                <span class="text-left arabic" t-field="o.martial_status"/>
+                                            </td>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <br/>
+                                <h3 class="text-center arabic"
+                                    style="background-color: gray; color: white; margin: 5px 0;">
+                                    معلومات الوظيفة والدخل
+
+                                </h3>
+                                <table width="100%" class="text-right arabic"
+                                       style=" border: 2px solid black; padding: 5px 5px; margin: 5px 0;text-align: right;">
+                                    <span class="text-right arabic">
+                                        <strong>الحالة الوظيفية</strong>
+                                        :
+                                        <span t-field="o.job_status"/>
+                                    </span>
+                                    <br/>
+                                    <span class="text-right arabic">
+                                        <strong>الوظيفة</strong>
+                                        :
+                                        <span t-field="o.job"/>
+                                    </span>
+                                    <br/>
+                                    <span class="text-right arabic">
+                                        <strong>الراتب</strong>
+                                        :
+                                        <span t-field="o.salary"/>
+                                    </span>
+                                    <br/>
+                                    <span class="text-right arabic">
+                                        <strong>عدد العاملين في الأسرة</strong>
+                                        :
+                                        <span t-field="o.family_members_employees"/>
+                                    </span>
+                                    <br/>
+                                    <span class="text-right arabic">
+                                        <strong>مجموع رواتب العاملين في الأسرة</strong>
+                                        :
+                                        <span t-field="o.total_salaries_for_family"/>
+                                    </span>
+                                </table>
+                                <br/>
+                                <h3 class="text-center arabic"
+                                    style="background-color: gray; color: white; margin: 5px 0;">
+                                    الإلتزامات الشهرية والديون
+
+                                </h3>
+                                <table width="100%" class="text-right arabic" style=" text-align: right;">
+                                    <tbody class="text-right arabic" style=" text-align: right;">
+                                        <tr>
+                                            <td>
+                                                <span class="text-right arabic">
+                                                    <strong>مجموع الديون</strong>
+                                                    :
+                                                    <span t-field="o.total_debits"/>
+                                                </span>
+
+                                            </td>
+
+
+                                            <td>
+                                                <span>
+                                                    <span t-field="o.monthly_debits_value"/>
+
+                                                    :
+                                                    <strong>قيمة الاقساط الشهرية</strong>
+                                                </span>
+
+                                            </td>
+
+                                            <td>
+
+                                                <span class="text-right arabic">
+                                                    <strong>اقساط شهرية للبنوك</strong>
+                                                    :
+                                                    <span t-field="o.monthly_debits"/>
+                                                </span>
+
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <span class="text-right arabic">
+                                                    <strong>مجموع الديون المستحقة للافراد</strong>
+                                                    :
+                                                    <span t-field="o.total_debits_for_people"/>
+                                                </span>
+                                            </td>
+
+                                            <td>
+                                                <span>
+                                                    <strong class="text-right arabic">اثبات رسمي للديون</strong>
+                                                    :
+                                                    <span t-field="o.debits_prove"/>
+                                                </span>
+
+                                            </td>
+
+
+                                            <td>
+                                                <span class="text-right arabic">
+                                                    <strong>ديون مستحقة للافراد</strong>
+                                                    :
+                                                    <span class="text-left" t-field="o.debits_for_people"/>
+                                                </span>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <span class="text-right arabic">
+                                                    <strong>الرسوم الدراسية للأبناء إن وجد</strong>
+                                                    :
+                                                    <span t-field="o.study_fees"/>
+                                                </span>
+
+                                            </td>
+                                            <td>
+                                                <span class="text-right arabic">
+                                                    <strong>مجموع الإلتزامات الشهرية للأسرة</strong>
+                                                    :
+                                                    <span t-field="o.total_debits_per_month"/>
+                                                </span>
+
+                                            </td>
+                                            <td>
+                                                <span class="text-right arabic">
+                                                    <strong>قيمة الإيجار الشهري</strong>
+                                                    :
+                                                    <span t-field="o.monthly_rent"/>
+                                                </span>
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                                <br/>
+                                <h3 class="text-center arabic"
+                                    style="background-color: gray; color: white; margin: 5px 0;">
+                                    معلومات التواصل والسكن
+                                </h3>
+                                <table width="100%" class="text-right arabic" style="text-align: right;">
+                                    <tbody class="text-right arabic" style=" text-align: right;">
+                                        <tr>
+                                            <td>
+                                                <span class="text-right arabic">
+                                                    <strong>الشارع</strong>
+                                                    :
+                                                    <span t-field="o.street"/>
+                                                </span>
+
+                                            </td>
+                                            <td>
+                                                <span class="text-right arabic">
+                                                    <strong>القطعة</strong>
+                                                    :
+                                                    <span t-field="o.piece"/>
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <span class="text-right arabic">
+                                                    <strong>المنطقة</strong>
+                                                    :
+                                                    <span t-field="o.zone"/>
+                                                </span>
+
+                                            </td>
+                                            <td>
+                                                <span class="text-right arabic">
+                                                    <strong>المحافظة</strong>
+                                                    :
+                                                    <span t-field="o.state"/>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <span class="text-right arabic"
+                                                      style="font-size: 1em; margin: 5px 0; padding: 0px 0px;">
+                                                    <strong>الشقة</strong>
+                                                    :
+                                                </span>
+                                                <span class="text-left arabic" t-field="o.flat"/>
+
+                                            </td>
+                                            <td>
+                                                <span class="text-right arabic"
+                                                      style="font-size: 1em; margin: 5px 0; padding: 0px 0px;">
+                                                    <strong>الدور</strong>
+                                                    :
+                                                </span>
+                                                <span class="text-left arabic" t-field="o.floor"/>
+                                            </td>
+                                            <td>
+                                                <span class="text-right arabic">
+                                                    <strong>المنزل</strong>
+                                                    :
+                                                    <span t-field="o.home"/>
+                                                </span>
+
+                                            </td>
+                                            <td>
+                                                <span class="text-right arabic">
+                                                    <strong>الجادة</strong>
+                                                    :
+                                                    <span t-field="o.elgada"/>
+                                                </span>
+                                            </td>
+
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <br/>
+                                <h3 class="text-center arabic"
+                                    style="background-color: gray; color: white; margin: 5px 0;">
+                                    المساعدات
+                                </h3>
+                                <table width="100%" class="text-right arabic" style="text-align: right;">
+                                    <tbody class="text-right arabic" style=" text-align: right;">
+                                        <tr>
+                                            <td>
+                                                <span class="text-right arabic">
+                                                    <strong>نوع المساعدة</strong>
+                                                    :
+                                                    <span t-field="o.zakat_help_type"/>
+                                                </span>
+
+                                            </td>
+                                            <td>
+                                                <span class="text-right arabic">
+                                                    <strong>قيمة المساعدة</strong>
+                                                    :
+                                                    <span t-field="o.zakat_help_value"/>
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <span class="text-right arabic">
+                                                    <strong>هل يساعدك بيت الزكاة ؟</strong>
+                                                    :
+                                                    <span t-field="o.zakat_help"/>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <br/>
+                                <div style=" border: 2px solid black;padding: 5px 5px;margin: 5px 0;">
+                                    <span class="text-right arabic"
+                                          style="font-size: 1em; margin: 5px 0; padding: 0px 0px;">:
+                                        مساعدات اللجان الاخري
+
+
+                                    </span>
+                                    <p t-field="o.other_charities_help"/>
+                                </div>
+                                <h3 class="text-center arabic"
+                                    style="background-color: gray; color: white; margin: 5px 0;">
+                                    شرح الحالة
+                                </h3>
+                                <div style=" border: 2px solid black;padding: 5px 5px;margin: 5px 0;">
+                                    <span class="text-right arabic"
+                                          style="font-size: 1em; margin: 5px 0; padding: 0px 0px;">:
+                                        التفاصيل
+                                    </span>
+                                    <p t-field="o.help_details"/>
+                                </div>
+                                <h3 class="text-center arabic"
+                                    style="background-color: gray; color: white; margin: 5px 0;">
+                                    قرار اللجنة النهائى
+                                </h3>
+                                <div style=" border: 2px solid black; padding: 5px 5px; margin: 5px 0;">
+
+                                    <span class="text-right arabic">
+                                        :
+                                        <strong>قرار اللجنة</strong>
+
+                                        <p t-field="o.decision_ids.name"/>
+                                    </span>
+                                    <br/>
+                                    <span class="text-right arabic">
+                                        <strong>عضو اللجنة</strong>
+                                        :
+                                        <span t-field="o.decision_ids.member"/>
+                                    </span>
+                                    <br/>
+                                    <span class="text-right arabic">
+                                        <strong>صفة العضو</strong>
+                                        :
+                                        <span t-field="o.decision_ids.member_type"/>
+                                    </span>
+
+                                    <p class="text-left arabic" style="font-size: 1.4em;">
+                                        توقيع رئيس اللجنة
+                                    </p>
+                                    <p class="text-left arabic" style="font-size: 1.4em;">
+                                        "........................"
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

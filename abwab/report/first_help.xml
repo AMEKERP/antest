@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <report
+            id="first_help_report"
+            model="abwab.abwab"
+            string="تقرير الحالة المبدأي"
+            report_type="qweb-pdf"
+            name="abwab.report_first"
+            file="abwab.report_first"
+    />
+    <template id="report_first">
+        <t t-name="abwab.report_first">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="web.external_layout">
+                        <div class="page">
+                            <link rel="stylesheet" href="/abwab/static/src/css/style.css"/>
+                            <h2 class="text-center arabic"
+                                style="background-color: gray; color: white; margin: 5px 0;">إفادة اللجنة عن الحالة
+                            </h2>
+                            <div width="100%" class="text-right arabic" style=" text-align: right;">
+                                <table width="100%" class="text-right arabic" style=" text-align: right;">
+                                    <tbody class="text-right arabic" style=" text-align: right;">
+                                        <tr>
+                                            <td>
+                                                <span class="text-right arabic">
+                                                    <strong>رقم الهاتف</strong>
+                                                    :
+                                                    <span t-field="o.phone"/>
+                                                </span>
+
+                                            </td>
+
+
+                                            <td>
+                                                <span>
+                                                    <span t-field="o.help_seq"/>
+
+                                                    :
+                                                    <strong>رقم الطلب</strong>
+                                                </span>
+
+                                            </td>
+
+                                            <td>
+                                                <span class="text-right arabic">
+                                                    <strong>تاريخ الطلب</strong>
+                                                    :
+                                                    <span t-field="o.create_date"/>
+                                                </span>
+
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <span class="text-right arabic">
+                                                    <strong>الجنسية</strong>
+                                                    :
+                                                    <span t-field="o.nationality"/>
+                                                </span>
+                                            </td>
+
+                                            <td>
+                                                <span>
+                                                    <strong class="text-right arabic">الاسم</strong>
+                                                    :
+                                                    <span t-field="o.name"/>
+                                                </span>
+
+                                            </td>
+                                            <td>
+                                                <span class="text-right arabic">
+                                                    <strong>الرقم المدني</strong>
+                                                    :
+                                                    <span class="text-left" t-field="o.civil_id"/>
+                                                </span>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <span class="text-right arabic">
+                                                    <strong>المحافظة</strong>
+                                                    :
+                                                    <span t-field="o.state"/>
+                                                </span>
+
+                                            </td>
+                                            <td>
+                                                <span class="text-right arabic">
+                                                    <strong>نوع المساعدة</strong>
+                                                    :
+                                                    <span t-field="o.case_type"/>
+                                                </span>
+
+                                            </td>
+                                            <td>
+                                                <span class="text-right arabic">
+                                                    <strong>عدد افراد الاسرة</strong>
+                                                    :
+                                                    <span t-field="o.family_members"/>
+                                                </span>
+
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <h2 class="text-center arabic"
+                                    style="background-color: gray; color: white; margin: 5px 0;">تفاصيل الحالة
+                                </h2>
+                                <div style=" border: 2px solid black;padding: 5px 5px;margin: 5px 0;">
+                                    <span class="text-center arabic">
+                                        <strong style="font-size: 1.2em;">: التفاصيل</strong>
+
+
+                                        <p class="text-right arabic"
+                                           style="font-size: 1em; margin: 5px 0; padding: 0px 0px;">
+                                            <span t-field="o.case_details"/>
+                                        </p>
+                                    </span>
+                                </div>
+                                <div style=" border: 2px solid black; padding: 5px 5px; margin: 5px 0;">
+                                    <td class="text-right arabic">
+                                        <strong style="font-size: 1.2em;">المسؤول عن الحالة</strong>
+                                        <span class="text-right arabic">
+
+                                            :
+
+                                            <span t-field="o.responsible_for_case"/>
+
+                                        </span>
+                                    </td>
+
+                                    <p class="text-left arabic" style="font-size: 1.2em;">
+                                        توقيع المسؤول
+                                    </p>
+                                    <p class="text-left arabic" style="font-size: 1.2em;">
+                                        "........................"
+                                    </p>
+                                </div>
+                                <h2 class="text-center arabic"
+                                    style="background-color: gray; color: white; margin: 5px 0;">
+                                    القرار المبدأي
+                                </h2>
+                                <div style=" border: 2px solid black; padding: 5px 5px; margin: 5px 0;">
+                                   <span class="text-left arabic" style="font-size: 1.2em;">
+                                        <strong>درجة الحالة</strong>
+                                        :
+                                        <span class="text-right arabic" t-field="o.case_degree"/>
+                                    </span>
+                                    <br/>
+                                      <span class="text-center arabic" style="font-size: 1.2em;">
+                                        <strong>القرار المبدأي</strong>
+                                        :
+                                        <span class="text-right arabic" t-field="o.decision"/>
+                                    </span>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>
+
+        <!-- trash -->
+        <!--<tr>-->
+        <!--    <td>-->
+        <!--        <span class="text-right arabic">-->
+        <!--            <strong>التاريخ</strong>-->
+        <!--            :-->
+        <!--            <span t-field="o.create_date"/>-->
+        <!--        </span>-->
+        <!--    </td>-->
+        <!--</tr>-->

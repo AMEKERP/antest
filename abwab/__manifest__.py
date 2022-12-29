@@ -1,16 +1,16 @@
 # -*- coding: utf-8 -*-
 {
-    'name': "Abwab",
+    'name': "Cases Admission",
 
     'summary': """
-        مبرة أبواب الخير""",
+         حالات المساعدات""",
 
     'description': """
         استمارة تسجيل طلب مساعدة للأسر المتعففة داخل الكويت.
     """,
 
-    'author': " Initium Solutions ",
-    'website': "http://www.initiumsolutions.me",
+    'author': " AMEK CAPITAL ",
+    'website': "http://amekcapital.com/",
 
     # Categories can be used to filter modules in modules listing
     # Check https://github.com/odoo/odoo/blob/14.0/odoo/addons/base/data/ir_module_category_data.xml
@@ -27,6 +27,8 @@
         'views/views.xml',
         'views/templates.xml',
         'views/web.xml',
+        'report/first_help.xml',
+        'report/final_help.xml',
     ],
     'application': True,
     'installable': True,

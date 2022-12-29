@@ -55,7 +55,7 @@ class HelpRequest(http.Controller):
         })
 
     @http.route('/create_final_help_request', auth='user', csrf=False, type='http', website=True, method=['POST'])
-    def create_final_help_request(self, civil_id, **kw):
+    def create_final_help_request(self, civil_id,job_status, **kw):
         six_months_period_before = (datetime.now() - timedelta(days=180))
         if request.env['abwab.final'].sudo().search(
                 [('civil_id', '=', civil_id), ('create_date', '>', six_months_period_before)]):
@@ -64,6 +64,7 @@ class HelpRequest(http.Controller):
         else:
             request.env['abwab.final'].sudo().create({**kw,
                                                       'civil_id': civil_id,
+                                                      'job_status': job_status,
                                                       'case_details_book': base64.b64encode(
                                                           kw.get('case_details_book').read()),
                                                       'id_copy': base64.b64encode(
