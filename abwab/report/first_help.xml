@@ -16,7 +16,7 @@
                         <div class="page">
                             <link rel="stylesheet" href="/abwab/static/src/css/style.css"/>
                             <h2 class="text-center arabic"
-                                style="background-color: gray; color: white; margin: 5px 0;">إفادة اللجنة عن الحالة
+                                style="background-color: #218c6c; color: white; margin: 5px 0;">إفادة اللجنة عن الحالة
                             </h2>
                             <div width="100%" class="text-right arabic" style=" text-align: right;">
                                 <table width="100%" class="text-right arabic" style=" text-align: right;">
@@ -107,7 +107,7 @@
                                     </tbody>
                                 </table>
                                 <h2 class="text-center arabic"
-                                    style="background-color: gray; color: white; margin: 5px 0;">تفاصيل الحالة
+                                    style="background-color: #218c6c; color: white; margin: 5px 0;">تفاصيل الحالة
                                 </h2>
                                 <div style=" border: 2px solid black;padding: 5px 5px;margin: 5px 0;">
                                     <span class="text-center arabic">
@@ -140,7 +140,7 @@
                                     </p>
                                 </div>
                                 <h2 class="text-center arabic"
-                                    style="background-color: gray; color: white; margin: 5px 0;">
+                                    style="background-color: #218c6c; color: white; margin: 5px 0;">
                                     القرار المبدأي
                                 </h2>
                                 <div style=" border: 2px solid black; padding: 5px 5px; margin: 5px 0;">

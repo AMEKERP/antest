@@ -16,7 +16,7 @@
                         <div class="page">
                             <link rel="stylesheet" href="/abwab/static/src/css/style.css"/>
                             <h3 class="text-center arabic"
-                                style="background-color: gray; color: white; margin: 5px 0;">إفادة اللجنة عن الحالة
+                                style="background-color: #218c6c; color: white; margin: 5px 0;">إفادة اللجنة عن الحالة
                             </h3>
                             <div width="100%" class="text-right arabic" style=" text-align: right;">
                                 <table width="100%" class="text-right arabic" style=" text-align: right;">
@@ -111,7 +111,7 @@
                                 <br/>
 
                                 <h3 class="text-center arabic"
-                                    style="background-color: gray; color: white; margin: 5px 0;">
+                                    style="background-color: #218c6c; color: white; margin: 5px 0;">
                                     معلومات الأسرة
                                 </h3>
                                 <table width="100%" class="text-right arabic" style="text-align: right;">
@@ -170,7 +170,7 @@
                                 </table>
                                 <br/>
                                 <h3 class="text-center arabic"
-                                    style="background-color: gray; color: white; margin: 5px 0;">
+                                    style="background-color: #218c6c; color: white; margin: 5px 0;">
                                     معلومات الوظيفة والدخل
 
                                 </h3>
@@ -208,7 +208,7 @@
                                 </table>
                                 <br/>
                                 <h3 class="text-center arabic"
-                                    style="background-color: gray; color: white; margin: 5px 0;">
+                                    style="background-color: #218c6c; color: white; margin: 5px 0;">
                                     الإلتزامات الشهرية والديون
 
                                 </h3>
@@ -304,7 +304,7 @@
                                 </table>
                                 <br/>
                                 <h3 class="text-center arabic"
-                                    style="background-color: gray; color: white; margin: 5px 0;">
+                                    style="background-color: #218c6c; color: white; margin: 5px 0;">
                                     معلومات التواصل والسكن
                                 </h3>
                                 <table width="100%" class="text-right arabic" style="text-align: right;">
@@ -380,7 +380,7 @@
                                 </table>
                                 <br/>
                                 <h3 class="text-center arabic"
-                                    style="background-color: gray; color: white; margin: 5px 0;">
+                                    style="background-color: #218c6c; color: white; margin: 5px 0;">
                                     المساعدات
                                 </h3>
                                 <table width="100%" class="text-right arabic" style="text-align: right;">
@@ -422,7 +422,7 @@
                                     <p t-field="o.other_charities_help"/>
                                 </div>
                                 <h3 class="text-center arabic"
-                                    style="background-color: gray; color: white; margin: 5px 0;">
+                                    style="background-color: #218c6c; color: white; margin: 5px 0;">
                                     شرح الحالة
                                 </h3>
                                 <div style=" border: 2px solid black;padding: 5px 5px;margin: 5px 0;">
@@ -433,7 +433,7 @@
                                     <p t-field="o.help_details"/>
                                 </div>
                                 <h3 class="text-center arabic"
-                                    style="background-color: gray; color: white; margin: 5px 0;">
+                                    style="background-color: #218c6c; color: white; margin: 5px 0;">
                                     قرار اللجنة النهائى
                                 </h3>
                                 <div style=" border: 2px solid black; padding: 5px 5px; margin: 5px 0;">
